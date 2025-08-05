@@ -1,15 +1,17 @@
 # EPIC 01: Foundation Infrastructure & Core Services
 
-**EPIC ID**: EPIC-01  
-**Priority**: Critical  
-**Phase**: Phase 1 (Months 1-3)  
-**Business Value**: Foundation for entire platform  
-**Estimated Story Points**: 120-150  
+**EPIC ID**: EPIC-01
+**Priority**: Critical
+**Phase**: Phase 1 (Months 1-3)
+**Business Value**: Foundation for entire platform
+**Estimated Story Points**: 120-150
 
 ## EPIC Description
+
 Establish the core infrastructure, authentication system, and basic user management services that form the foundation of the AI Interview Preparation Assistant platform.
 
 ## Business Objectives
+
 - Enable user registration and basic profile management
 - Establish secure authentication and authorization
 - Set up scalable cloud infrastructure on Azure
@@ -17,6 +19,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - Create foundation for all future features
 
 ## Acceptance Criteria
+
 - [ ] Users can register, login, and manage their profiles
 - [ ] Multi-tier subscription system is operational
 - [ ] Azure infrastructure is provisioned and monitored
@@ -24,6 +27,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Basic admin functionality is available
 
 ## Dependencies
+
 - Azure subscription and resource setup
 - Domain registration and SSL certificates
 - Initial team onboarding and access setup
@@ -33,16 +37,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ## User Stories
 
 ### Story 1.1: Azure Infrastructure Provisioning
-**Story ID**: STORY-01-01  
-**Story Points**: 13  
-**Priority**: Critical  
+
+**Story ID**: STORY-01-01
+**Story Points**: 13
+**Priority**: Critical
 **Sprint**: Sprint 1
 
-**As a** DevOps Engineer  
-**I want to** provision Azure infrastructure using Terraform  
+**As a** DevOps Engineer
+**I want to** provision Azure infrastructure using Terraform
 **So that** the platform has a scalable, secure, and monitored cloud environment
 
 #### Acceptance Criteria
+
 - [ ] Azure Resource Group created with proper naming conventions
 - [ ] Azure Kubernetes Service (AKS) cluster provisioned
 - [ ] Azure Database for PostgreSQL (Flexible Server) created
@@ -53,6 +59,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] All resources tagged with environment and project information
 
 #### Technical Tasks
+
 - [ ] Create Terraform configuration for all Azure resources
 - [ ] Set up Azure DevOps service connections
 - [ ] Configure resource naming conventions
@@ -62,16 +69,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.2: CI/CD Pipeline Implementation
-**Story ID**: STORY-01-02  
-**Story Points**: 8  
-**Priority**: Critical  
+
+**Story ID**: STORY-01-02
+**Story Points**: 8
+**Priority**: Critical
 **Sprint**: Sprint 1
 
-**As a** Developer  
-**I want to** have automated CI/CD pipelines  
+**As a** Developer
+**I want to** have automated CI/CD pipelines
 **So that** code can be deployed safely and consistently across environments
 
 #### Acceptance Criteria
+
 - [ ] Build pipeline for .NET Core services with Docker containerization
 - [ ] Build pipeline for NestJS AI service
 - [ ] Build pipeline for Next.js web application
@@ -81,6 +90,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Rollback mechanisms implemented
 
 #### Technical Tasks
+
 - [ ] Create Azure DevOps YAML pipelines
 - [ ] Set up Docker registry and image management
 - [ ] Configure environment-specific variable groups
@@ -91,16 +101,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.3: Database Schema Design and Migration
-**Story ID**: STORY-01-03  
-**Story Points**: 13  
-**Priority**: Critical  
+
+**Story ID**: STORY-01-03
+**Story Points**: 13
+**Priority**: Critical
 **Sprint**: Sprint 1
 
-**As a** Backend Developer  
-**I want to** design and implement the core database schema  
+**As a** Backend Developer
+**I want to** design and implement the core database schema
 **So that** user data, subscriptions, and content can be stored efficiently
 
 #### Acceptance Criteria
+
 - [ ] User management tables with audit trails
 - [ ] Subscription and billing tables
 - [ ] Role-based access control schema
@@ -110,6 +122,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Backup and recovery procedures tested
 
 #### Technical Tasks
+
 - [ ] Design domain-driven database schema
 - [ ] Create EF Core models and configurations
 - [ ] Implement database migration scripts
@@ -121,16 +134,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.4: Authentication Service Development
-**Story ID**: STORY-01-04  
-**Story Points**: 21  
-**Priority**: Critical  
+
+**Story ID**: STORY-01-04
+**Story Points**: 21
+**Priority**: Critical
 **Sprint**: Sprint 2
 
-**As a** User  
-**I want to** register and authenticate securely  
+**As a** User
+**I want to** register and authenticate securely
 **So that** I can access the platform safely with multiple login options
 
 #### Acceptance Criteria
+
 - [ ] User registration with email verification
 - [ ] Login with email/password
 - [ ] Google OAuth 2.0 integration
@@ -141,6 +156,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Account lockout after failed attempts
 
 #### Technical Tasks
+
 - [ ] Implement Clean Architecture for Auth Service
 - [ ] Create domain entities (User, Identity, Session, Role)
 - [ ] Implement OAuth providers integration
@@ -153,16 +169,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.5: User Management Service
-**Story ID**: STORY-01-05  
-**Story Points**: 13  
-**Priority**: High  
+
+**Story ID**: STORY-01-05
+**Story Points**: 13
+**Priority**: High
 **Sprint**: Sprint 2
 
-**As a** User  
-**I want to** manage my profile and preferences  
+**As a** User
+**I want to** manage my profile and preferences
 **So that** I can personalize my interview preparation experience
 
 #### Acceptance Criteria
+
 - [ ] Complete user profile creation and editing
 - [ ] Profile photo upload functionality
 - [ ] User preferences management
@@ -172,6 +190,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Account deletion with data cleanup
 
 #### Technical Tasks
+
 - [ ] Create User Management Service with Clean Architecture
 - [ ] Implement profile CRUD operations
 - [ ] Set up file upload for profile photos
@@ -183,16 +202,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.6: Subscription Management System
-**Story ID**: STORY-01-06  
-**Story Points**: 21  
-**Priority**: High  
+
+**Story ID**: STORY-01-06
+**Story Points**: 21
+**Priority**: High
 **Sprint**: Sprint 2
 
-**As a** Business Owner  
-**I want to** implement tiered subscriptions  
+**As a** Business Owner
+**I want to** implement tiered subscriptions
 **So that** the platform can generate revenue through different service levels
 
 #### Acceptance Criteria
+
 - [ ] Free tier with 5 mock interviews per month
 - [ ] Premium individual tier with unlimited access
 - [ ] Enterprise tier with team management
@@ -202,6 +223,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Usage analytics per tier
 
 #### Technical Tasks
+
 - [ ] Create Subscription domain entities
 - [ ] Implement subscription tier logic
 - [ ] Create usage tracking system
@@ -213,16 +235,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.7: Payment Integration with Stripe
-**Story ID**: STORY-01-07  
-**Story Points**: 13  
-**Priority**: High  
+
+**Story ID**: STORY-01-07
+**Story Points**: 13
+**Priority**: High
 **Sprint**: Sprint 3
 
-**As a** User  
-**I want to** pay for premium subscriptions securely  
+**As a** User
+**I want to** pay for premium subscriptions securely
 **So that** I can access advanced features and unlimited usage
 
 #### Acceptance Criteria
+
 - [ ] Stripe payment integration with multiple payment methods
 - [ ] Secure payment processing with tokenization
 - [ ] Automated invoice generation
@@ -232,6 +256,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Refund processing capability
 
 #### Technical Tasks
+
 - [ ] Create Payment Service with Clean Architecture
 - [ ] Integrate Stripe SDK and webhooks
 - [ ] Implement payment method management
@@ -243,16 +268,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.8: Basic Admin Dashboard
-**Story ID**: STORY-01-08  
-**Story Points**: 13  
-**Priority**: Medium  
+
+**Story ID**: STORY-01-08
+**Story Points**: 13
+**Priority**: Medium
 **Sprint**: Sprint 3
 
-**As an** Administrator  
-**I want to** manage users and monitor system health  
+**As an** Administrator
+**I want to** manage users and monitor system health
 **So that** I can ensure platform quality and user satisfaction
 
 #### Acceptance Criteria
+
 - [ ] User management interface (view, edit, disable users)
 - [ ] Subscription management and billing overview
 - [ ] System health monitoring dashboard
@@ -262,6 +289,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Audit log viewing
 
 #### Technical Tasks
+
 - [ ] Create admin authentication and authorization
 - [ ] Build admin dashboard UI with Next.js
 - [ ] Implement user management features
@@ -273,16 +301,18 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ### Story 1.9: Web Application Foundation
-**Story ID**: STORY-01-09  
-**Story Points**: 21  
-**Priority**: High  
+
+**Story ID**: STORY-01-09
+**Story Points**: 21
+**Priority**: High
 **Sprint**: Sprint 3
 
-**As a** User  
-**I want to** access the platform through a modern web interface  
+**As a** User
+**I want to** access the platform through a modern web interface
 **So that** I can use the service on any device with a browser
 
 #### Acceptance Criteria
+
 - [ ] Responsive web application built with Next.js
 - [ ] User authentication integration
 - [ ] Profile management interface
@@ -292,6 +322,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] Mobile-responsive design
 
 #### Technical Tasks
+
 - [ ] Set up Next.js project structure
 - [ ] Implement Ant Design component library
 - [ ] Create authentication pages and flows
@@ -304,6 +335,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 ---
 
 ## EPIC Success Metrics
+
 - [ ] 100% infrastructure automation
 - [ ] < 30 second user registration process
 - [ ] 99.9% authentication success rate
@@ -312,6 +344,7 @@ Establish the core infrastructure, authentication system, and basic user managem
 - [ ] 90% payment success rate
 
 ## Risk Mitigation
+
 - **Azure Resource Limits**: Monitor quotas and request increases early
 - **Security Vulnerabilities**: Regular security scanning and penetration testing
 - **Performance Issues**: Load testing from early stages
@@ -319,6 +352,6 @@ Establish the core infrastructure, authentication system, and basic user managem
 
 ---
 
-*EPIC Owner*: Technical Lead  
-*Business Stakeholder*: Product Manager  
-*Estimated Completion*: End of Month 3
+_EPIC Owner_: Technical Lead
+_Business Stakeholder_: Product Manager
+_Estimated Completion_: End of Month 3
