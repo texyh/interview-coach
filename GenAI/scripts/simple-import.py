@@ -16,7 +16,7 @@ load_dotenv()
 # Configuration (Update these or use .env file)
 ORGANIZATION = os.getenv("AZURE_DEVOPS_ORGANIZATION", "Onwuzulike-Emeka")
 PROJECT = os.getenv("AZURE_DEVOPS_PROJECT", "Interview-Prep")
-PAT_TOKEN = os.getenv("AZURE_DEVOPS_PAT_TOKEN", "your-pat-token")
+PAT_TOKEN = os.getenv("AZURE_DEVOPS_PAT_TOKEN", "")
 
 
 def create_work_item(
