@@ -63,12 +63,12 @@ validate_azure_cli() {
         log_warning "Azure CLI not found. Install it for Key Vault integration."
         return 1
     fi
-    
+
     if ! az account show &> /dev/null; then
         log_warning "Azure CLI not logged in. Run 'az login' for Key Vault access."
         return 1
     fi
-    
+
     log_success "Azure CLI is configured"
     return 0
 }
@@ -78,17 +78,17 @@ validate_node_version() {
         log_error "Node.js not found. Please install Node.js 18+ and try again."
         exit 1
     fi
-    
+
     local node_version
     node_version=$(node --version | sed 's/v//')
     local major_version
     major_version=$(echo "${node_version}" | cut -d. -f1)
-    
+
     if [ "${major_version}" -lt 18 ]; then
         log_error "Node.js version ${node_version} is too old. Please install Node.js 18+ and try again."
         exit 1
     fi
-    
+
     log_success "Node.js version ${node_version} is compatible"
 }
 
@@ -97,17 +97,17 @@ validate_dotnet_version() {
         log_error ".NET SDK not found. Please install .NET 8.0+ and try again."
         exit 1
     fi
-    
+
     local dotnet_version
     dotnet_version=$(dotnet --version)
     local major_version
     major_version=$(echo "${dotnet_version}" | cut -d. -f1)
-    
+
     if [ "${major_version}" -lt 8 ]; then
         log_error ".NET version ${dotnet_version} is too old. Please install .NET 8.0+ and try again."
         exit 1
     fi
-    
+
     log_success ".NET version ${dotnet_version} is compatible"
 }
 
@@ -115,7 +115,7 @@ validate_dotnet_version() {
 create_backend_env() {
     local env_file="${BACKEND_PATH}/.env.${ENVIRONMENT}"
     log_info "Creating backend environment file: ${env_file}"
-    
+
     cat > "${env_file}" << EOF
 # AIPA Backend Environment Configuration - ${ENVIRONMENT}
 # Generated on $(date)
@@ -153,7 +153,7 @@ EOF
 create_ai_service_env() {
     local env_file="${AI_SERVICE_PATH}/.env.${ENVIRONMENT}"
     log_info "Creating AI service environment file: ${env_file}"
-    
+
     cat > "${env_file}" << EOF
 # AIPA AI Service Environment Configuration - ${ENVIRONMENT}
 # Generated on $(date)
@@ -194,7 +194,7 @@ EOF
 create_web_app_env() {
     local env_file="${WEB_APP_PATH}/.env.${ENVIRONMENT}"
     log_info "Creating web app environment file: ${env_file}"
-    
+
     cat > "${env_file}" << EOF
 # AIPA Web App Environment Configuration - ${ENVIRONMENT}
 # Generated on $(date)
@@ -226,7 +226,7 @@ EOF
 create_mobile_app_env() {
     local env_file="${MOBILE_APP_PATH}/.env.${ENVIRONMENT}"
     log_info "Creating mobile app environment file: ${env_file}"
-    
+
     cat > "${env_file}" << EOF
 # AIPA Mobile App Environment Configuration - ${ENVIRONMENT}
 # Generated on $(date)
@@ -826,14 +826,14 @@ EOF
 validate_configuration() {
     local service_name="$1"
     local env_file="$2"
-    
+
     log_info "Validating ${service_name} configuration..."
-    
+
     if [[ ! -f "${env_file}" ]]; then
         log_error "Environment file not found: ${env_file}"
         return 1
     fi
-    
+
     # Check for required variables based on service
     local required_vars=()
     case "${service_name}" in
@@ -850,14 +850,14 @@ validate_configuration() {
             required_vars=("API_BASE_URL" "AI_SERVICE_URL")
             ;;
     esac
-    
+
     local missing_vars=()
     for var in "${required_vars[@]}"; do
         if ! grep -q "^${var}=" "${env_file}" 2>/dev/null; then
             missing_vars+=("${var}")
         fi
     done
-    
+
     if [[ ${#missing_vars[@]} -gt 0 ]]; then
         log_error "Missing required variables in ${service_name}:"
         for var in "${missing_vars[@]}"; do
@@ -865,7 +865,7 @@ validate_configuration() {
         done
         return 1
     fi
-    
+
     log_success "${service_name} configuration is valid"
     return 0
 }
@@ -876,17 +876,17 @@ setup_azure_keyvault() {
         log_info "Azure Key Vault setup is only needed for production environment"
         return 0
     fi
-    
+
     if ! validate_azure_cli; then
         log_warning "Skipping Azure Key Vault setup due to Azure CLI issues"
         return 1
     fi
-    
+
     local vault_name="${AZURE_KEYVAULT_NAME:-aipa-prod-kv}"
     local resource_group="${AZURE_RESOURCE_GROUP:-aipa-production}"
-    
+
     log_info "Setting up Azure Key Vault secrets for production..."
-    
+
     # Create secrets (with placeholder values - replace with actual values)
     local secrets=(
         "aipa-db-connection-string"
@@ -896,7 +896,7 @@ setup_azure_keyvault() {
         "azure-speech-key"
         "azure-appinsights-connection-string"
     )
-    
+
     for secret in "${secrets[@]}"; do
         if ! az keyvault secret show --vault-name "${vault_name}" --name "${secret}" &>/dev/null; then
             log_warning "Secret '${secret}' not found in Key Vault. Please create it manually."
@@ -909,28 +909,28 @@ setup_azure_keyvault() {
 # Installation functions
 install_dependencies() {
     log_info "Installing dependencies for all services..."
-    
+
     # Backend dependencies
     if [[ -f "${BACKEND_PATH}/src/AIPA.WebApi/AIPA.WebApi.csproj" ]]; then
         log_info "Installing .NET dependencies..."
         (cd "${BACKEND_PATH}" && dotnet restore)
         log_success ".NET dependencies installed"
     fi
-    
+
     # AI Service dependencies
     if [[ -f "${AI_SERVICE_PATH}/package.json" ]]; then
         log_info "Installing AI Service dependencies..."
         (cd "${AI_SERVICE_PATH}" && npm ci)
         log_success "AI Service dependencies installed"
     fi
-    
+
     # Web App dependencies
     if [[ -f "${WEB_APP_PATH}/package.json" ]]; then
         log_info "Installing Web App dependencies..."
         (cd "${WEB_APP_PATH}" && npm ci)
         log_success "Web App dependencies installed"
     fi
-    
+
     # Mobile App dependencies
     if [[ -f "${MOBILE_APP_PATH}/pubspec.yaml" ]]; then
         log_info "Installing Flutter dependencies..."
@@ -947,45 +947,45 @@ install_dependencies() {
 main() {
     log_info "AIPA Environment Configuration Script"
     log_info "======================================"
-    
+
     # Validate environment parameter
     validate_environment
-    
+
     # If validation only mode
     if [[ "${VALIDATE_ONLY}" == "--validate-only" ]]; then
         log_info "Running in validation-only mode"
-        
+
         validate_node_version
         validate_dotnet_version
         validate_azure_cli
-        
+
         # Validate existing configuration files
         local validation_failed=false
-        
+
         if [[ -f "${BACKEND_PATH}/.env.${ENVIRONMENT}" ]]; then
             validate_configuration "Backend" "${BACKEND_PATH}/.env.${ENVIRONMENT}" || validation_failed=true
         else
             log_warning "Backend environment file not found: ${BACKEND_PATH}/.env.${ENVIRONMENT}"
         fi
-        
+
         if [[ -f "${AI_SERVICE_PATH}/.env.${ENVIRONMENT}" ]]; then
             validate_configuration "AI Service" "${AI_SERVICE_PATH}/.env.${ENVIRONMENT}" || validation_failed=true
         else
             log_warning "AI Service environment file not found: ${AI_SERVICE_PATH}/.env.${ENVIRONMENT}"
         fi
-        
+
         if [[ -f "${WEB_APP_PATH}/.env.${ENVIRONMENT}" ]]; then
             validate_configuration "Web App" "${WEB_APP_PATH}/.env.${ENVIRONMENT}" || validation_failed=true
         else
             log_warning "Web App environment file not found: ${WEB_APP_PATH}/.env.${ENVIRONMENT}"
         fi
-        
+
         if [[ -f "${MOBILE_APP_PATH}/.env.${ENVIRONMENT}" ]]; then
             validate_configuration "Mobile App" "${MOBILE_APP_PATH}/.env.${ENVIRONMENT}" || validation_failed=true
         else
             log_warning "Mobile App environment file not found: ${MOBILE_APP_PATH}/.env.${ENVIRONMENT}"
         fi
-        
+
         if [[ "${validation_failed}" == true ]]; then
             log_error "Configuration validation failed"
             exit 1
@@ -994,29 +994,29 @@ main() {
             exit 0
         fi
     fi
-    
+
     # Validate prerequisites
     validate_node_version
     validate_dotnet_version
-    
+
     # Create environment files
     create_backend_env
     create_ai_service_env
     create_web_app_env
     create_mobile_app_env
-    
+
     # Setup Azure Key Vault for production
     setup_azure_keyvault
-    
+
     # Install dependencies
     install_dependencies
-    
+
     # Validate configurations
     validate_configuration "Backend" "${BACKEND_PATH}/.env.${ENVIRONMENT}"
     validate_configuration "AI Service" "${AI_SERVICE_PATH}/.env.${ENVIRONMENT}"
     validate_configuration "Web App" "${WEB_APP_PATH}/.env.${ENVIRONMENT}"
     validate_configuration "Mobile App" "${MOBILE_APP_PATH}/.env.${ENVIRONMENT}"
-    
+
     log_success "Environment configuration completed successfully!"
     log_info ""
     log_info "Next steps:"
