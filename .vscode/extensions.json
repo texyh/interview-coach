@@ -1,0 +1,47 @@
+{
+  "recommendations": [
+    // Core development tools
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.vscodeintellicode-csharp",
+
+    // TypeScript/JavaScript
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+
+    // Flutter/Dart
+    "Dart-Code.dart-code",
+    "Dart-Code.flutter",
+
+    // Azure and deployment
+    "ms-azuretools.vscode-docker",
+    "ms-azuretools.azure-dev",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "ms-azuretools.vscode-azureappservice",
+    "ms-azuretools.vscode-azurefunctions",
+    "ms-azuretools.vscode-azurestaticwebapps",
+
+    // Git and version control
+    "mhutchie.git-graph",
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+
+    // Code quality and testing
+    "SonarSource.sonarlint-vscode",
+    "ms-vscode.vscode-jest-runner",
+    "Orta.vscode-jest",
+
+    // Productivity
+    "PKief.material-icon-theme",
+    "streetsidesoftware.code-spell-checker",
+    "Gruntfuggly.todo-tree",
+    "ms-vsliveshare.vsliveshare",
+
+    // API development
+    "humao.rest-client",
+    "ms-mssql.mssql",
+    "mongodb.mongodb-vscode"
+  ]
+}

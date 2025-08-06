@@ -54,6 +54,7 @@ aipa-mobile-app/.env.development
 **Features**: Debug tools enabled, verbose logging, hot reload
 
 **Characteristics**:
+
 - Local database connections
 - Mock external services
 - Disabled SSL requirements
@@ -67,6 +68,7 @@ aipa-mobile-app/.env.development
 **Features**: Production-like configuration with testing flexibility
 
 **Characteristics**:
+
 - Azure-hosted databases
 - Real external service connections
 - SSL required
@@ -80,6 +82,7 @@ aipa-mobile-app/.env.development
 **Features**: Maximum security, performance optimization
 
 **Characteristics**:
+
 - All secrets in Azure Key Vault
 - Strict security headers
 - Minimal logging
@@ -93,7 +96,7 @@ aipa-mobile-app/.env.development
 #### Configuration Files
 
 - `appsettings.Development.json` - Development settings
-- `appsettings.Staging.json` - Staging settings  
+- `appsettings.Staging.json` - Staging settings
 - `appsettings.Production.json` - Production settings
 - `Configuration/ApplicationOptions.cs` - Strongly-typed configuration classes
 - `Extensions/ConfigurationExtensions.cs` - Configuration validation and setup
@@ -101,6 +104,7 @@ aipa-mobile-app/.env.development
 #### Key Configuration Areas
 
 **Database Configuration**
+
 ```json
 {
   "ConnectionStrings": {
@@ -111,6 +115,7 @@ aipa-mobile-app/.env.development
 ```
 
 **OpenAI Configuration**
+
 ```json
 {
   "OpenAI": {
@@ -123,6 +128,7 @@ aipa-mobile-app/.env.development
 ```
 
 **Azure Services**
+
 ```json
 {
   "Azure": {
@@ -163,6 +169,7 @@ var result = await validator.ValidateAsync();
 #### Key Configuration Areas
 
 **Application Settings**
+
 ```typescript
 app: {
   name: 'AIPA AI Service',
@@ -174,6 +181,7 @@ app: {
 ```
 
 **Database Configuration**
+
 ```typescript
 database: {
   type: 'postgresql',
@@ -186,6 +194,7 @@ database: {
 ```
 
 **OpenAI Integration**
+
 ```typescript
 openai: {
   apiKey: 'sk-dev-key-placeholder',
@@ -199,12 +208,14 @@ openai: {
 #### Environment-Specific Features
 
 **Development**
+
 - Local database connections
 - Debug logging enabled
 - Hot reload support
 - Swagger documentation enabled
 
 **Production**
+
 - Azure Key Vault integration
 - Compressed responses
 - Security headers
@@ -222,6 +233,7 @@ openai: {
 #### Environment Variables
 
 **Public Variables** (Available in browser)
+
 ```env
 NEXT_PUBLIC_APP_NAME=AIPA Interview Preparation
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
@@ -230,6 +242,7 @@ NEXT_PUBLIC_ENABLE_VOICE_ANALYSIS=true
 ```
 
 **Server-Side Variables** (Server-only)
+
 ```env
 API_SECRET_KEY=your-secret-key
 DATABASE_URL=postgresql://...
@@ -243,14 +256,14 @@ Production configuration includes comprehensive security headers:
 ```javascript
 headers: [
   {
-    key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-inline'..."
+    key: "Content-Security-Policy",
+    value: "default-src 'self'; script-src 'self' 'unsafe-inline'...",
   },
   {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubDomains; preload'
-  }
-]
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
+  },
+];
 ```
 
 ### 4. AIPA Mobile App (Flutter)
@@ -287,6 +300,7 @@ In production, all sensitive configuration is stored in Azure Key Vault and refe
 #### Setup Azure Key Vault
 
 1. **Create Key Vault**
+
 ```bash
 az keyvault create \
   --name aipa-prod-kv \
@@ -295,6 +309,7 @@ az keyvault create \
 ```
 
 2. **Create Secrets**
+
 ```bash
 az keyvault secret set --vault-name aipa-prod-kv --name "aipa-db-connection-string" --value "Server=..."
 az keyvault secret set --vault-name aipa-prod-kv --name "openai-api-key" --value "sk-..."
@@ -302,6 +317,7 @@ az keyvault secret set --vault-name aipa-prod-kv --name "jwt-secret-key" --value
 ```
 
 3. **Configure Access Policy**
+
 ```bash
 az keyvault set-policy \
   --name aipa-prod-kv \
@@ -312,6 +328,7 @@ az keyvault set-policy \
 #### Configuration Integration
 
 **Backend (.NET)**
+
 ```json
 {
   "Azure": {
@@ -327,6 +344,7 @@ az keyvault set-policy \
 ```
 
 **AI Service (Node.js)**
+
 ```typescript
 database: {
   host: process.env.AIPA_AI_DB_HOST || '${aipa-ai-db-host}',
@@ -358,6 +376,7 @@ az keyvault secret set \
 ### 2. Secret Management
 
 **DO**:
+
 - Store all production secrets in Azure Key Vault
 - Use managed identities for Azure service authentication
 - Implement secret rotation schedules
@@ -365,6 +384,7 @@ az keyvault secret set \
 - Use short-lived tokens where possible
 
 **DON'T**:
+
 - Commit secrets to version control
 - Share secrets via email or chat
 - Use the same secrets across environments
@@ -379,7 +399,7 @@ All services include configuration validation:
 // AI Service validation
 const validationResult = validateConfiguration(config);
 if (!validationResult.isValid) {
-  console.error('Configuration errors:', validationResult.errors);
+  console.error("Configuration errors:", validationResult.errors);
   process.exit(1);
 }
 ```
@@ -410,6 +430,7 @@ Set up monitoring for configuration issues:
 **Problem**: Service fails to start with configuration validation errors
 
 **Solution**:
+
 ```bash
 # Run validation
 ./scripts/setup-environment.sh [environment] --validate-only
@@ -424,6 +445,7 @@ dotnet run --environment Development
 **Problem**: Cannot access secrets from Key Vault
 
 **Solution**:
+
 ```bash
 # Check Azure CLI authentication
 az account show
@@ -440,6 +462,7 @@ az keyvault show --name aipa-prod-kv --query "properties.accessPolicies"
 **Problem**: Wrong environment configuration loaded
 
 **Solution**:
+
 ```bash
 # Check environment variables
 echo $NODE_ENV
@@ -455,6 +478,7 @@ ls -la aipa-backend/appsettings.*.json
 **Problem**: Cannot connect to database
 
 **Solution**:
+
 ```bash
 # Test database connectivity
 psql "Server=localhost;Database=aipa_dev;User Id=aipa_dev;Password=***"
@@ -469,6 +493,7 @@ psql "Server=localhost;Database=aipa_dev;User Id=aipa_dev;Password=***"
 Enable debug mode for configuration troubleshooting:
 
 **Backend**
+
 ```json
 {
   "Logging": {
@@ -480,6 +505,7 @@ Enable debug mode for configuration troubleshooting:
 ```
 
 **AI Service**
+
 ```typescript
 monitoring: {
   logging: {
@@ -494,45 +520,49 @@ monitoring: {
 ### Required Environment Variables by Service
 
 #### Backend (.NET)
-| Variable | Environment | Required | Description |
-|----------|-------------|----------|-------------|
-| `ConnectionStrings__DefaultConnection` | All | Yes | Primary database connection |
-| `OpenAI__ApiKey` | All | Yes | OpenAI API key |
-| `JWT__SecretKey` | All | Yes | JWT signing secret |
-| `Azure__KeyVault__VaultUri` | Production | Yes | Key Vault URI |
+
+| Variable                               | Environment | Required | Description                 |
+| -------------------------------------- | ----------- | -------- | --------------------------- |
+| `ConnectionStrings__DefaultConnection` | All         | Yes      | Primary database connection |
+| `OpenAI__ApiKey`                       | All         | Yes      | OpenAI API key              |
+| `JWT__SecretKey`                       | All         | Yes      | JWT signing secret          |
+| `Azure__KeyVault__VaultUri`            | Production  | Yes      | Key Vault URI               |
 
 #### AI Service (NestJS)
-| Variable | Environment | Required | Description |
-|----------|-------------|----------|-------------|
-| `AIPA_AI_DB_HOST` | All | Yes | Database host |
-| `OPENAI_API_KEY` | All | Yes | OpenAI API key |
-| `JWT_SECRET_KEY` | All | Yes | JWT signing secret |
-| `AZURE_KEYVAULT_URI` | Production | Yes | Key Vault URI |
+
+| Variable             | Environment | Required | Description        |
+| -------------------- | ----------- | -------- | ------------------ |
+| `AIPA_AI_DB_HOST`    | All         | Yes      | Database host      |
+| `OPENAI_API_KEY`     | All         | Yes      | OpenAI API key     |
+| `JWT_SECRET_KEY`     | All         | Yes      | JWT signing secret |
+| `AZURE_KEYVAULT_URI` | Production  | Yes      | Key Vault URI      |
 
 #### Web App (Next.js)
-| Variable | Environment | Required | Description |
-|----------|-------------|----------|-------------|
-| `NEXT_PUBLIC_API_BASE_URL` | All | Yes | Backend API URL |
-| `NEXT_PUBLIC_AI_SERVICE_URL` | All | Yes | AI Service URL |
-| `NEXT_PUBLIC_ENVIRONMENT` | All | Yes | Environment name |
+
+| Variable                     | Environment | Required | Description      |
+| ---------------------------- | ----------- | -------- | ---------------- |
+| `NEXT_PUBLIC_API_BASE_URL`   | All         | Yes      | Backend API URL  |
+| `NEXT_PUBLIC_AI_SERVICE_URL` | All         | Yes      | AI Service URL   |
+| `NEXT_PUBLIC_ENVIRONMENT`    | All         | Yes      | Environment name |
 
 #### Mobile App (Flutter)
-| Variable | Environment | Required | Description |
-|----------|-------------|----------|-------------|
-| `API_BASE_URL` | All | Yes | Backend API URL |
-| `AI_SERVICE_URL` | All | Yes | AI Service URL |
-| `FLUTTER_ENV` | All | Yes | Environment name |
+
+| Variable         | Environment | Required | Description      |
+| ---------------- | ----------- | -------- | ---------------- |
+| `API_BASE_URL`   | All         | Yes      | Backend API URL  |
+| `AI_SERVICE_URL` | All         | Yes      | AI Service URL   |
+| `FLUTTER_ENV`    | All         | Yes      | Environment name |
 
 ### Azure Key Vault Secrets (Production)
 
-| Secret Name | Description | Used By |
-|-------------|-------------|---------|
-| `aipa-db-connection-string` | Primary database connection | Backend |
-| `aipa-ai-db-connection-string` | AI service database connection | AI Service |
-| `openai-api-key` | OpenAI API key | Backend, AI Service |
-| `jwt-secret-key` | JWT signing secret | All services |
-| `azure-speech-key` | Azure Speech Services key | AI Service |
-| `azure-appinsights-connection-string` | Application Insights connection | All services |
+| Secret Name                           | Description                     | Used By             |
+| ------------------------------------- | ------------------------------- | ------------------- |
+| `aipa-db-connection-string`           | Primary database connection     | Backend             |
+| `aipa-ai-db-connection-string`        | AI service database connection  | AI Service          |
+| `openai-api-key`                      | OpenAI API key                  | Backend, AI Service |
+| `jwt-secret-key`                      | JWT signing secret              | All services        |
+| `azure-speech-key`                    | Azure Speech Services key       | AI Service          |
+| `azure-appinsights-connection-string` | Application Insights connection | All services        |
 
 ### Configuration File Locations
 
