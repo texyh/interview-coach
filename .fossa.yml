@@ -1,0 +1,185 @@
+version: 3
+
+# FOSSA Configuration for AIPA Platform License Compliance
+# This configuration scans all project components for license compliance
+
+# Project Information
+project:
+  name: "aipa-platform"
+  version: "1.0.0"
+  description: "AI Interview Preparation Assistant Platform"
+  url: "https://github.com/aipa-platform/aipa"
+
+# Scan Targets
+targets:
+  # .NET Backend
+  - name: backend
+    type: nuget
+    target: aipa-backend/src/AIPA.sln
+    options:
+      all-projects: true
+
+  # NestJS AI Service
+  - name: ai-service
+    type: npm
+    target: aipa-ai-service/package.json
+    options:
+      production: true
+
+  # Next.js Web App
+  - name: web-app
+    type: npm
+    target: aipa-web-app/package.json
+    options:
+      production: true
+
+  # Flutter Mobile App
+  - name: mobile-app
+    type: dart
+    target: aipa-mobile-app/pubspec.yaml
+
+# License Policies
+policies:
+  - name: security-policy
+    type: license
+    rules:
+      # Allowed licenses (permissive)
+      - license_allow_list:
+          - MIT
+          - Apache-2.0
+          - BSD-2-Clause
+          - BSD-3-Clause
+          - ISC
+          - Unlicense
+          - CC0-1.0
+
+      # Licenses requiring review
+      - license_review_list:
+          - GPL-2.0
+          - GPL-3.0
+          - LGPL-2.1
+          - LGPL-3.0
+          - MPL-2.0
+          - EPL-1.0
+          - EPL-2.0
+          - CDDL-1.0
+          - CDDL-1.1
+
+      # Prohibited licenses
+      - license_deny_list:
+          - AGPL-1.0
+          - AGPL-3.0
+          - GPL-2.0-with-classpath-exception
+          - WTFPL
+          - UNLICENSED
+          - UNKNOWN
+
+# Security scanning configuration
+security:
+  # Vulnerability scanning
+  vulnerability_scanning:
+    enabled: true
+    severity_threshold: "medium"
+    fail_on_vulnerability: true
+
+  # Known vulnerable packages to avoid
+  vulnerable_packages:
+    - name: "lodash"
+      versions: ["< 4.17.21"]
+    - name: "moment"
+      versions: ["< 2.29.2"]
+    - name: "axios"
+      versions: ["< 0.21.2"]
+
+# Reporting configuration
+reporting:
+  # Output formats
+  formats:
+    - json
+    - html
+    - csv
+
+  # Report destinations
+  output_path: "./reports/license-compliance/"
+
+  # Include details
+  include_dependencies: true
+  include_licenses: true
+  include_vulnerabilities: true
+
+# Integration settings
+integrations:
+  # Azure DevOps integration
+  azure_devops:
+    enabled: true
+    fail_build_on_policy_violation: true
+
+  # GitHub integration
+  github:
+    enabled: true
+    create_issues: true
+
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: "${SLACK_WEBHOOK_URL}"
+
+# Exclusions
+exclusions:
+  # Exclude development and test dependencies
+  - path: "**/node_modules/**"
+  - path: "**/bin/**"
+  - path: "**/obj/**"
+  - path: "**/test/**"
+  - path: "**/tests/**"
+  - path: "**/*.test.ts"
+  - path: "**/*.spec.ts"
+  - path: "**/*.test.js"
+  - path: "**/*.spec.js"
+
+  # Exclude specific packages (if needed)
+  - package: "@types/*"
+    reason: "TypeScript type definitions"
+  - package: "eslint-*"
+    reason: "Development tooling"
+  - package: "prettier"
+    reason: "Development tooling"
+
+# Custom license detection
+custom_licenses:
+  - name: "Custom-MIT-Variant"
+    text_file: "./legal/custom-licenses/custom-mit.txt"
+    spdx_id: "MIT"
+
+# Legal review settings
+legal_review:
+  # Packages requiring legal review
+  review_required:
+    - license_categories: ["copyleft", "restrictive"]
+    - package_names: ["*gpl*", "*lgpl*"]
+
+  # Auto-approval for common licenses
+  auto_approve:
+    - MIT
+    - Apache-2.0
+    - BSD-3-Clause
+
+  # Notification settings
+  notifications:
+    email: "legal-team@aipa.local"
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
+
+# Compliance reporting schedule
+scheduling:
+  # Run compliance checks
+  frequency: "weekly"
+  day_of_week: "monday"
+  time: "09:00"
+
+  # Generate reports
+  reports:
+    frequency: "monthly"
+    recipients:
+      - "legal-team@aipa.local"
+      - "security-team@aipa.local"
+      - "compliance-team@aipa.local"

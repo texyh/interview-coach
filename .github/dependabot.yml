@@ -1,0 +1,76 @@
+version: 2
+updates:
+  # .NET Backend Dependencies
+  - package-ecosystem: "nuget"
+    directory: "/aipa-backend/src"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    reviewers:
+      - "security-team"
+    assignees:
+      - "security-team"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"
+
+  # NestJS AI Service Dependencies
+  - package-ecosystem: "npm"
+    directory: "/aipa-ai-service"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    reviewers:
+      - "security-team"
+    assignees:
+      - "security-team"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"
+
+  # Next.js Web App Dependencies
+  - package-ecosystem: "npm"
+    directory: "/aipa-web-app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    reviewers:
+      - "security-team"
+    assignees:
+      - "security-team"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"
+
+  # Flutter Mobile App Dependencies
+  - package-ecosystem: "pub"
+    directory: "/aipa-mobile-app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    reviewers:
+      - "security-team"
+    assignees:
+      - "security-team"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"
+
+  # GitHub Actions Dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "security-team"
+    labels:
+      - "github-actions"
+      - "security"
