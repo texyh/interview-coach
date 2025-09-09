@@ -15,7 +15,7 @@ function App() {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#4f46e5", // Indigo
+          colorPrimary: "#1e40af", // Primary blue
           borderRadius: 8,
         },
       }}
@@ -25,7 +25,7 @@ function App() {
         <Sider theme="light" className="shadow-sm" width={280}>
           <div className="p-6">
             <div className="flex items-center space-x-2 mb-8">
-              <RobotOutlined className="text-2xl text-indigo-600" />
+              <RobotOutlined className="text-2xl text-primary-600" />
               <Title level={4} className="m-0 text-slate-900">
                 AIPA
               </Title>
@@ -99,43 +99,43 @@ function App() {
 
               {/* Feature Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <Card className="card hover:shadow-md transition-shadow duration-200">
-                  <div className="text-center">
-                    <BookOutlined className="text-3xl text-indigo-600 mb-3" />
-                    <Title level={4} className="text-slate-900 mb-2">
-                      Smart Preparation
-                    </Title>
-                    <Text className="text-slate-600">
-                      AI-driven interview questions tailored to your industry
-                      and role
-                    </Text>
-                  </div>
-                </Card>
+              <Card className="card hover:shadow-md transition-shadow duration-200">
+                <div className="text-center">
+                  <BookOutlined className="text-3xl text-primary-600 mb-3" />
+                  <Title level={4} className="text-slate-900 mb-2">
+                    Smart Preparation
+                  </Title>
+                  <Text className="text-slate-600">
+                    AI-driven interview questions tailored to your industry
+                    and role
+                  </Text>
+                </div>
+              </Card>
 
-                <Card className="card hover:shadow-md transition-shadow duration-200">
-                  <div className="text-center">
-                    <BarChartOutlined className="text-3xl text-indigo-600 mb-3" />
-                    <Title level={4} className="text-slate-900 mb-2">
-                      Performance Analytics
-                    </Title>
-                    <Text className="text-slate-600">
-                      Detailed insights and progress tracking for continuous
-                      improvement
-                    </Text>
-                  </div>
-                </Card>
+              <Card className="card hover:shadow-md transition-shadow duration-200">
+                <div className="text-center">
+                  <BarChartOutlined className="text-3xl text-primary-600 mb-3" />
+                  <Title level={4} className="text-slate-900 mb-2">
+                    Performance Analytics
+                  </Title>
+                  <Text className="text-slate-600">
+                    Detailed insights and progress tracking for continuous
+                    improvement
+                  </Text>
+                </div>
+              </Card>
 
-                <Card className="card hover:shadow-md transition-shadow duration-200">
-                  <div className="text-center">
-                    <UserOutlined className="text-3xl text-indigo-600 mb-3" />
-                    <Title level={4} className="text-slate-900 mb-2">
-                      Personalized Coaching
-                    </Title>
-                    <Text className="text-slate-600">
-                      Resume analysis and customized preparation plans
-                    </Text>
-                  </div>
-                </Card>
+              <Card className="card hover:shadow-md transition-shadow duration-200">
+                <div className="text-center">
+                  <UserOutlined className="text-3xl text-primary-600 mb-3" />
+                  <Title level={4} className="text-slate-900 mb-2">
+                    Personalized Coaching
+                  </Title>
+                  <Text className="text-slate-600">
+                    Resume analysis and customized preparation plans
+                  </Text>
+                </div>
+              </Card>
               </div>
 
               {/* Quick Actions */}
