@@ -5,6 +5,21 @@ Accept: application/json
 
 ###
 
+# Register a new user
+POST {{AIPA.WebApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "new.user@example.com",
+  "password": "MySecurePass123!",
+  "confirmPassword": "MySecurePass123!",
+  "firstName": "John",
+  "lastName": "Smith",
+  "acceptTerms": true
+}
+
+###
+
 # Login with seed user (John Doe)
 POST {{AIPA.WebApi_HostAddress}}/api/auth/login
 Content-Type: application/json
@@ -14,5 +29,19 @@ Content-Type: application/json
   "password": "Password123!"
 }
 
+###
+
+# Alternative: Register with different user details
+POST {{AIPA.WebApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "jane.wilson@example.com",
+  "password": "WilsonPass456!",
+  "confirmPassword": "WilsonPass456!",
+  "firstName": "Jane",
+  "lastName": "Wilson",
+  "acceptTerms": true
+}
 
 
