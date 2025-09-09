@@ -1,59 +1,136 @@
-# AipaAngular
+# AIPA Web App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+The web application component of AIPA (AI Interview Preparation Assistant) - a comprehensive SaaS platform for interview preparation.
 
-## Development server
+## 🚀 Tech Stack
 
-To start a local development server, run:
+- **Framework**: React 19 with TypeScript
+- **Build Tool**: Vite
+- **UI Library**: Ant Design 5.x
+- **Styling**: Tailwind CSS 4.x
+- **Icons**: Ant Design Icons
 
-```bash
-ng serve
+## 📋 Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+## 🛠️ Installation
+
+1. **Clone the repository** (if not already cloned)
+   ```bash
+   git clone <repository-url>
+   cd interview-preper/aipa-web-app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+## 📜 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run type-check` - Run TypeScript type checking
+- `npm run clean` - Clean build artifacts
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Page components
+├── hooks/         # Custom React hooks
+├── services/      # API services and utilities
+├── types/         # TypeScript type definitions
+├── utils/         # Helper functions
+├── styles/        # Global styles and Tailwind config
+├── App.tsx        # Main application component
+├── main.tsx       # Application entry point
+└── index.css      # Global CSS with Tailwind directives
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🎨 Design System
 
-## Code scaffolding
+### Colors
+- **Primary**: Indigo (#4f46e5, #6366f1)
+- **Secondary**: Slate grays
+- **Accent**: Green for success states
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Components
+- Custom Tailwind utility classes in `index.css`
+- Ant Design components with custom theme
+- Responsive design with mobile-first approach
 
-```bash
-ng generate component component-name
-```
+## 🔧 Configuration
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Tailwind CSS
+- Configuration: `tailwind.config.js`
+- PostCSS config: `postcss.config.js`
+- Custom utilities defined in `src/index.css`
 
-```bash
-ng generate --help
-```
+### Ant Design
+- Theme configuration in `App.tsx`
+- Custom color tokens aligned with design system
 
-## Building
+## 🌐 Browser Support
 
-To build the project run:
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
 
-```bash
-ng build
-```
+## 📱 Responsive Design
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Mobile-first approach
+- Breakpoints: 640px (sm), 768px (md), 1024px (lg), 1280px (xl)
+- Touch-friendly interface elements
 
-## Running unit tests
+## 🔒 Development Guidelines
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Use TypeScript for all new code
+- Follow React best practices and hooks guidelines
+- Implement proper error boundaries
+- Use semantic HTML and accessibility features
+- Write clean, maintainable CSS with Tailwind utilities
 
-```bash
-ng test
-```
+## 🚀 Deployment
 
-## Running end-to-end tests
+1. **Build for production**
+   ```bash
+   npm run build
+   ```
 
-For end-to-end (e2e) testing, run:
+2. **Preview build locally**
+   ```bash
+   npm run preview
+   ```
 
-```bash
-ng e2e
-```
+3. **Deploy the `dist` folder** to your hosting provider
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🤝 Contributing
 
-## Additional Resources
+1. Follow the established coding standards
+2. Use conventional commit messages
+3. Test your changes thoroughly
+4. Update documentation as needed
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📞 Support
+
+For questions or issues related to the web application, please refer to the main project documentation or create an issue in the repository.
+
+---
+
+**AIPA Web App** - Part of the AI Interview Preparation Assistant platform
