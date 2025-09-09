@@ -1,17 +1,13 @@
 {
   "name": "aipa-web-app",
   "private": true,
-  "version": "1.0.0",
-  "description": "AIPA - AI Interview Preparation Assistant Web Application",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5173",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "preview": "vite preview",
-    "type-check": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules/.vite"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.1",
@@ -20,7 +16,7 @@
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
