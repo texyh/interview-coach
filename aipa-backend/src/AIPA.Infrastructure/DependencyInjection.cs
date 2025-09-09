@@ -102,7 +102,8 @@ public static class DependencyInjection
             }
 
             // Seed initial data
-            await DatabaseSeeder.SeedAsync(context, cancellationToken);
+            var passwordHashingService = scope.ServiceProvider.GetRequiredService<IPasswordHashingService>();
+            await DatabaseSeeder.SeedAsync(context, passwordHashingService, cancellationToken);
         }
         catch (Exception ex)
         {

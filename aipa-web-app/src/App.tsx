@@ -1,12 +1,11 @@
-import React from 'react';
-import { ConfigProvider, Layout, Typography, Button, Card, Space } from 'antd';
 import {
-  RobotOutlined,
-  BookOutlined,
-  UserOutlined,
   BarChartOutlined,
-  SettingOutlined
-} from '@ant-design/icons';
+  BookOutlined,
+  RobotOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Card, ConfigProvider, Layout, Space, Typography } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -16,7 +15,7 @@ function App() {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#4f46e5', // Indigo
+          colorPrimary: "#4f46e5", // Indigo
           borderRadius: 8,
         },
       }}
@@ -92,7 +91,8 @@ function App() {
                     Welcome to AIPA
                   </Title>
                   <Text className="text-slate-600 text-lg">
-                    Your AI-powered companion for interview preparation and career success
+                    Your AI-powered companion for interview preparation and
+                    career success
                   </Text>
                 </div>
               </Card>
@@ -106,7 +106,8 @@ function App() {
                       Smart Preparation
                     </Title>
                     <Text className="text-slate-600">
-                      AI-driven interview questions tailored to your industry and role
+                      AI-driven interview questions tailored to your industry
+                      and role
                     </Text>
                   </div>
                 </Card>
@@ -118,7 +119,8 @@ function App() {
                       Performance Analytics
                     </Title>
                     <Text className="text-slate-600">
-                      Detailed insights and progress tracking for continuous improvement
+                      Detailed insights and progress tracking for continuous
+                      improvement
                     </Text>
                   </div>
                 </Card>

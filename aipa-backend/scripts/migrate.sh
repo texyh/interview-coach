@@ -59,11 +59,16 @@ check_dotnet() {
 # Get project directory
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 INFRASTRUCTURE_PROJECT="$PROJECT_DIR/src/AIPA.Infrastructure"
+WEBAPI_PROJECT="$PROJECT_DIR/src/AIPA.WebApi"
 
-# Check if infrastructure project exists
+# Check if projects exist
 check_project() {
     if [ ! -f "$INFRASTRUCTURE_PROJECT/AIPA.Infrastructure.csproj" ]; then
         print_error "Infrastructure project not found at: $INFRASTRUCTURE_PROJECT"
+        exit 1
+    fi
+    if [ ! -f "$WEBAPI_PROJECT/AIPA.WebApi.csproj" ]; then
+        print_error "WebAPI project not found at: $WEBAPI_PROJECT"
         exit 1
     fi
 }
@@ -80,9 +85,12 @@ add_migration() {
 
     print_info "Adding migration: $migration_name"
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
-    if dotnet ef migrations add "$migration_name" --verbose; then
+    if dotnet ef migrations add "$migration_name" \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --verbose; then
         print_success "Migration '$migration_name' added successfully"
     else
         print_error "Failed to add migration '$migration_name'"
@@ -94,9 +102,12 @@ add_migration() {
 update_database() {
     print_info "Updating database to latest migration..."
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
-    if dotnet ef database update --verbose; then
+    if dotnet ef database update \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --verbose; then
         print_success "Database updated successfully"
     else
         print_error "Failed to update database"
@@ -115,9 +126,12 @@ remove_migration() {
         exit 0
     fi
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
-    if dotnet ef migrations remove --verbose; then
+    if dotnet ef migrations remove \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --verbose; then
         print_success "Last migration removed successfully"
     else
         print_error "Failed to remove migration"
@@ -129,19 +143,24 @@ remove_migration() {
 list_migrations() {
     print_info "Listing all migrations..."
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
-    dotnet ef migrations list
+    dotnet ef migrations list \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj"
 }
 
 # Show migration status
 show_status() {
     print_info "Checking migration status..."
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
     echo "Applied migrations:"
-    dotnet ef migrations list --no-build 2>/dev/null || print_warning "Could not retrieve migration status"
+    dotnet ef migrations list \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --no-build 2>/dev/null || print_warning "Could not retrieve migration status"
 }
 
 # Reset database (destructive)
@@ -154,17 +173,23 @@ reset_database() {
         exit 0
     fi
 
-    cd "$INFRASTRUCTURE_PROJECT"
+    cd "$WEBAPI_PROJECT"
 
     print_info "Dropping database..."
-    if dotnet ef database drop --force --verbose; then
+    if dotnet ef database drop \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --force --verbose; then
         print_success "Database dropped"
     else
         print_warning "Database drop failed or database doesn't exist"
     fi
 
     print_info "Updating database to latest migration..."
-    if dotnet ef database update --verbose; then
+    if dotnet ef database update \
+        --project "../AIPA.Infrastructure/AIPA.Infrastructure.csproj" \
+        --startup-project "AIPA.WebApi.csproj" \
+        --verbose; then
         print_success "Database reset and updated successfully"
     else
         print_error "Failed to update database after reset"
