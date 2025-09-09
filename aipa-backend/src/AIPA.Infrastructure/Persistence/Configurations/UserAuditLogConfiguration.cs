@@ -45,11 +45,11 @@ public class UserAuditLogConfiguration : IEntityTypeConfiguration<UserAuditLog>
             .IsRequired(false);
 
         builder.Property(ual => ual.OldValues)
-            .HasColumnType("nvarchar(max)")
+            .HasColumnType("text")
             .IsRequired(false);
 
         builder.Property(ual => ual.NewValues)
-            .HasColumnType("nvarchar(max)")
+            .HasColumnType("text")
             .IsRequired(false);
 
         builder.Property(ual => ual.Timestamp)
@@ -68,7 +68,7 @@ public class UserAuditLogConfiguration : IEntityTypeConfiguration<UserAuditLog>
             .IsRequired();
 
         builder.Property(ual => ual.AdditionalInfo)
-            .HasColumnType("nvarchar(max)")
+            .HasColumnType("text")
             .IsRequired(false);
 
         // Create indexes
@@ -86,7 +86,7 @@ public class UserAuditLogConfiguration : IEntityTypeConfiguration<UserAuditLog>
 
         builder.HasIndex(ual => ual.PerformedBy)
             .HasDatabaseName("IX_UserAuditLogs_PerformedBy")
-            .HasFilter("[PerformedBy] IS NOT NULL");
+            .HasFilter("\"PerformedBy\" IS NOT NULL");
 
         // Create composite indexes for common queries
         builder.HasIndex(ual => new { ual.UserId, ual.Timestamp })

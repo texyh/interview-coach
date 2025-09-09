@@ -126,7 +126,7 @@ public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
         builder.HasIndex(s => s.ExternalSubscriptionId)
             .IsUnique()
             .HasDatabaseName("IX_Subscriptions_ExternalSubscriptionId")
-            .HasFilter("[ExternalSubscriptionId] IS NOT NULL");
+            .HasFilter("\"ExternalSubscriptionId\" IS NOT NULL");
 
         // Configure audit fields from BaseEntity
         builder.Property(s => s.CreatedAt)
