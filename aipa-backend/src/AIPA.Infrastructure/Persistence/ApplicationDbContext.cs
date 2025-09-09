@@ -21,19 +21,23 @@ public class ApplicationDbContext : DbContext
     public DbSet<InterviewSession> InterviewSessions { get; set; } = null!;
     public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
+    // DbSets for user management entities
+    public DbSet<Role> Roles { get; set; } = null!;
+    public DbSet<Permission> Permissions { get; set; } = null!;
+    public DbSet<UserRole> UserRoles { get; set; } = null!;
+
+    // DbSets for subscription entities
+    public DbSet<Subscription> Subscriptions { get; set; } = null!;
+    public DbSet<SubscriptionUsage> SubscriptionUsages { get; set; } = null!;
+    // DbSets for audit entities
+    public DbSet<UserAuditLog> UserAuditLogs { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Apply all entity configurations from current assembly
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        // Ignore entities that are not yet ready for EF mapping
-        modelBuilder.Ignore<Role>();
-        modelBuilder.Ignore<Permission>();
-        modelBuilder.Ignore<UserRole>();
-        modelBuilder.Ignore<Subscription>();
-        modelBuilder.Ignore<SubscriptionUsage>();
-        modelBuilder.Ignore<UserAuditLog>();
-
+        // All entities now have configurations - no entities to ignore
         base.OnModelCreating(modelBuilder);
     }
 

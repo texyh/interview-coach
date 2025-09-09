@@ -43,7 +43,7 @@ public class SubscriptionUsageConfiguration : IEntityTypeConfiguration<Subscript
             .IsRequired();
 
         builder.Property(su => su.Metadata)
-            .HasColumnType("nvarchar(max)")
+            .HasColumnType("text")
             .IsRequired(false);
 
         // Create indexes

@@ -94,19 +94,20 @@ public class InterviewSessionConfiguration : IEntityTypeConfiguration<InterviewS
                     v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions)null!) ?? new());
         });
 
-        // Configure InterviewSessionHistory complex object
+        // Configure InterviewSessionHistory complex object (similar to RecordingMetadata)
         builder.OwnsOne(i => i.History, history =>
         {
             history.OwnsMany(h => h.Events, events =>
             {
-                events.Property(e => e.Id);
-                events.Property(e => e.Timestamp);
-                events.Property(e => e.EventType).HasMaxLength(100);
-                events.Property(e => e.Description).HasMaxLength(500);
+                events.Property(e => e.Id).ValueGeneratedOnAdd();
+                events.Property(e => e.Timestamp).IsRequired();
+                events.Property(e => e.EventType).HasMaxLength(100).IsRequired();
+                events.Property(e => e.Description).HasMaxLength(500).IsRequired();
                 events.Property(e => e.Metadata)
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
-                        v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions)null!) ?? new());
+                        v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions)null!) ?? new())
+                    .HasColumnType("text");
             });
 
             history.OwnsOne(h => h.Analytics, analytics =>
@@ -124,11 +125,13 @@ public class InterviewSessionConfiguration : IEntityTypeConfiguration<InterviewS
                 analytics.Property(a => a.SkillScores)
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
-                        v => JsonSerializer.Deserialize<Dictionary<string, double>>(v, (JsonSerializerOptions)null!) ?? new());
+                        v => JsonSerializer.Deserialize<Dictionary<string, double>>(v, (JsonSerializerOptions)null!) ?? new())
+                    .HasColumnType("text");
                 analytics.Property(a => a.PerformanceMetrics)
                     .HasConversion(
                         v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
-                        v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions)null!) ?? new());
+                        v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions)null!) ?? new())
+                    .HasColumnType("text");
             });
         });
 

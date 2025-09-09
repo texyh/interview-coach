@@ -104,6 +104,47 @@ namespace AIPA.Infrastructure.Migrations
                     b.ToTable("InterviewSessions", (string)null);
                 });
 
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Category")
+                        .HasDatabaseName("IX_Permissions_Category");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Permissions_Name");
+
+                    b.ToTable("Permissions", (string)null);
+                });
+
             modelBuilder.Entity("AIPA.Domain.Users.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
@@ -154,6 +195,176 @@ namespace AIPA.Infrastructure.Migrations
                         .HasDatabaseName("IX_RefreshTokens_UserId");
 
                     b.ToTable("RefreshTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Roles_Name");
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BillingInterval")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("CancellationReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ExternalSubscriptionId")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime?>("NextBillingDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Tier")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalSubscriptionId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Subscriptions_ExternalSubscriptionId")
+                        .HasFilter("\"ExternalSubscriptionId\" IS NOT NULL");
+
+                    b.HasIndex("NextBillingDate")
+                        .HasDatabaseName("IX_Subscriptions_NextBillingDate");
+
+                    b.HasIndex("Status")
+                        .HasDatabaseName("IX_Subscriptions_Status");
+
+                    b.HasIndex("Tier")
+                        .HasDatabaseName("IX_Subscriptions_Tier");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Subscriptions_UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Subscriptions", (string)null);
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.SubscriptionUsage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FeatureUsed")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Metadata")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("SubscriptionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("SubscriptionId");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("UsedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeatureUsed")
+                        .HasDatabaseName("IX_SubscriptionUsage_FeatureUsed");
+
+                    b.HasIndex("SubscriptionId")
+                        .HasDatabaseName("IX_SubscriptionUsage_SubscriptionId");
+
+                    b.HasIndex("UsedAt")
+                        .HasDatabaseName("IX_SubscriptionUsage_UsedAt");
+
+                    b.HasIndex("SubscriptionId", "FeatureUsed")
+                        .HasDatabaseName("IX_SubscriptionUsage_SubscriptionId_FeatureUsed");
+
+                    b.HasIndex("SubscriptionId", "UsedAt")
+                        .HasDatabaseName("IX_SubscriptionUsage_SubscriptionId_UsedAt");
+
+                    b.ToTable("SubscriptionUsage", (string)null);
                 });
 
             modelBuilder.Entity("AIPA.Domain.Users.Entities.User", b =>
@@ -217,6 +428,164 @@ namespace AIPA.Infrastructure.Migrations
                         .HasDatabaseName("IX_Users_Email");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.UserAuditLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EntityId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PerformedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserAgent")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Action")
+                        .HasDatabaseName("IX_UserAuditLogs_Action");
+
+                    b.HasIndex("EntityType")
+                        .HasDatabaseName("IX_UserAuditLogs_EntityType");
+
+                    b.HasIndex("PerformedBy")
+                        .HasDatabaseName("IX_UserAuditLogs_PerformedBy")
+                        .HasFilter("\"PerformedBy\" IS NOT NULL");
+
+                    b.HasIndex("Timestamp")
+                        .HasDatabaseName("IX_UserAuditLogs_Timestamp");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_UserAuditLogs_UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.HasIndex("UserId", "Timestamp")
+                        .HasDatabaseName("IX_UserAuditLogs_UserId_Timestamp");
+
+                    b.HasIndex("EntityType", "EntityId", "Timestamp")
+                        .HasDatabaseName("IX_UserAuditLogs_EntityType_EntityId_Timestamp");
+
+                    b.ToTable("UserAuditLogs", (string)null);
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.UserRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("AssignedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("RoleId");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsActive")
+                        .HasDatabaseName("IX_UserRoles_IsActive");
+
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("IX_UserRoles_RoleId");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_UserRoles_UserId");
+
+                    b.HasIndex("UserId", "RoleId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_UserRoles_UserId_RoleId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("RolePermissions", b =>
+                {
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("PermissionId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolePermissions", (string)null);
                 });
 
             modelBuilder.Entity("AIPA.Domain.Interviews.Entities.InterviewSession", b =>
@@ -410,6 +779,76 @@ namespace AIPA.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Subscription", b =>
+                {
+                    b.HasOne("AIPA.Domain.Users.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("AIPA.Domain.Users.Entities.Subscription", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AIPA.Domain.Users.Entities.User", null)
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId1");
+
+                    b.OwnsOne("AIPA.Domain.ValueObjects.UsageLimits", "UsageLimits", b1 =>
+                        {
+                            b1.Property<Guid>("SubscriptionId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<bool>("CanAccessPremiumQuestions")
+                                .HasColumnType("boolean")
+                                .HasColumnName("CanAccessPremiumQuestions");
+
+                            b1.Property<bool>("CanExportData")
+                                .HasColumnType("boolean")
+                                .HasColumnName("CanExportData");
+
+                            b1.Property<bool>("HasPrioritySupport")
+                                .HasColumnType("boolean")
+                                .HasColumnName("HasPrioritySupport");
+
+                            b1.Property<int>("MaxConcurrentSessions")
+                                .HasColumnType("integer")
+                                .HasColumnName("MaxConcurrentSessions");
+
+                            b1.Property<int>("MonthlyAIAnalysis")
+                                .HasColumnType("integer")
+                                .HasColumnName("MonthlyAIAnalysis");
+
+                            b1.Property<int>("MonthlyInterviewSessions")
+                                .HasColumnType("integer")
+                                .HasColumnName("MonthlyInterviewSessions");
+
+                            b1.Property<int>("StorageInMB")
+                                .HasColumnType("integer")
+                                .HasColumnName("StorageInMB");
+
+                            b1.HasKey("SubscriptionId");
+
+                            b1.ToTable("Subscriptions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubscriptionId");
+                        });
+
+                    b.Navigation("UsageLimits")
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.SubscriptionUsage", b =>
+                {
+                    b.HasOne("AIPA.Domain.Users.Entities.Subscription", "Subscription")
+                        .WithMany("UsageHistory")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subscription");
+                });
+
             modelBuilder.Entity("AIPA.Domain.Users.Entities.User", b =>
                 {
                     b.OwnsOne("AIPA.Domain.ValueObjects.FullName", "FullName", b1 =>
@@ -545,9 +984,74 @@ namespace AIPA.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.UserAuditLog", b =>
+                {
+                    b.HasOne("AIPA.Domain.Users.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AIPA.Domain.Users.Entities.User", null)
+                        .WithMany("AuditLogs")
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.UserRole", b =>
+                {
+                    b.HasOne("AIPA.Domain.Users.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AIPA.Domain.Users.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RolePermissions", b =>
+                {
+                    b.HasOne("AIPA.Domain.Users.Entities.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AIPA.Domain.Users.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("AIPA.Domain.Users.Entities.Subscription", b =>
+                {
+                    b.Navigation("UsageHistory");
+                });
+
             modelBuilder.Entity("AIPA.Domain.Users.Entities.User", b =>
                 {
+                    b.Navigation("AuditLogs");
+
                     b.Navigation("InterviewSessions");
+
+                    b.Navigation("Subscriptions");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

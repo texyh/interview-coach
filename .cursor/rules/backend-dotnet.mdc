@@ -29,6 +29,91 @@ You are a senior .NET backend developer and an expert in C#, ASP.NET Core, and E
 - Leverage built-in ASP.NET Core features and middleware.
 - Use Entity Framework Core effectively for database operations.
 
+## PostgreSQL Database Configuration
+
+**IMPORTANT: All EF Core configurations MUST be optimized for PostgreSQL, NOT SQL Server.**
+
+### Column Types
+
+- Use `text` instead of `nvarchar(max)` for large text fields
+- Use `varchar(n)` with appropriate max lengths instead of `nvarchar(n)`
+- Use `decimal(18,2)` for monetary values instead of `money` or `decimal`
+- Use `timestamp with time zone` for DateTime fields requiring timezone awareness
+- Use `uuid` for GUID primary keys instead of `uniqueidentifier`
+
+### Index and Constraint Syntax
+
+- Use double quotes `""` for PostgreSQL identifiers instead of square brackets `[]`
+- Example: `.HasFilter("\"ColumnName\" IS NOT NULL")` instead of `.HasFilter("[ColumnName] IS NOT NULL")`
+- Use PostgreSQL-specific index filters and naming conventions
+
+### JSON and Complex Types
+
+- Use `text` for JSON fields with manual serialization
+- Prefer `jsonb` for PostgreSQL-native JSON storage when available
+- Always specify proper column types for JSON fields
+
+### Migration Best Practices
+
+- Always test migrations against PostgreSQL
+- Use appropriate PostgreSQL data types in migrations
+- Verify generated SQL before applying to production
+- Include database-specific optimizations in migration scripts
+
+### Configuration Examples
+
+```csharp
+// ✅ CORRECT - PostgreSQL optimized
+builder.Property(p => p.Description)
+    .HasColumnType("text")
+    .IsRequired(false);
+
+// ✅ CORRECT - PostgreSQL filter syntax
+builder.HasIndex(e => e.CreatedAt)
+    .HasDatabaseName("IX_Entities_CreatedAt")
+    .HasFilter("\"CreatedAt\" > '2020-01-01'");
+
+// ❌ WRONG - SQL Server syntax (DO NOT USE)
+builder.Property(p => p.Description)
+    .HasColumnType("nvarchar(max)"); // Wrong for PostgreSQL
+
+builder.HasFilter("[CreatedAt] > '2020-01-01'"); // Wrong for PostgreSQL
+```
+
+### Database-Specific Optimizations
+
+- Use PostgreSQL-specific query hints and optimizations
+- Implement proper indexing strategies for PostgreSQL
+- Use `ILIKE` for case-insensitive searches instead of SQL Server's approach
+- Prefer `jsonb` operations for JSON queries when possible
+- Use PostgreSQL array types when appropriate instead of serialized collections
+
+### EF Core Configuration Patterns
+
+- Always specify `.HasColumnType()` for non-standard properties
+- Use `.HasMaxLength()` for string properties with constraints
+- Configure owned entities properly for complex types
+- Use value converters for custom types (enums, value objects)
+- Implement proper cascade delete behavior for relationships
+- Create database-specific indexes for performance
+- Use PostgreSQL-compatible filter expressions in indexes
+
+### Common PostgreSQL EF Core Mistakes to Avoid
+
+- ❌ Don't use SQL Server syntax in configurations (brackets, nvarchar, etc.)
+- ❌ Don't forget to configure owned entities properly
+- ❌ Don't use unsupported column types without proper conversion
+- ❌ Don't create indexes without considering PostgreSQL's B-tree limitations
+- ❌ Don't use SQL Server-specific functions in LINQ queries
+
+### Migration and Database Context Setup
+
+- Configure Npgsql as the database provider in Program.cs
+- Use appropriate connection strings for PostgreSQL
+- Enable sensitive data logging in development only
+- Configure migrations to use PostgreSQL-specific SQL generation
+- Test migrations against actual PostgreSQL database before deployment
+
 ## Syntax and Formatting
 
 - Follow the C# Coding Conventions (https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
