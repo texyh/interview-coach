@@ -1,0 +1,82 @@
+name: aipa_mobile_app
+description: "AIPA - AI-Powered Interview Preparation Assistant Mobile App"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI and Icons
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+  hooks_riverpod: ^2.6.1
+  flutter_hooks: ^0.20.5
+  riverpod_annotation: ^2.6.1
+
+  # Data Classes and Serialization
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+
+  # Navigation
+  go_router: ^14.6.1
+
+  # Network and HTTP
+  http: ^1.2.2
+  dio: ^5.7.0
+
+  # Images and Media
+  cached_network_image: ^3.4.1
+
+  # Storage and Persistence
+  shared_preferences: ^2.3.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+
+  # Utilities
+  equatable: ^2.0.5
+  logger: ^2.4.0
+  intl: ^0.19.0
+  dartz: ^0.10.1
+
+  # Backend Integration (Supabase)
+  supabase_flutter: ^2.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Linting and Code Quality
+  flutter_lints: ^5.0.0
+
+  # Code Generation
+  build_runner: ^2.4.13
+  freezed: ^3.1.0
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.6.1
+
+  # Testing
+  mockito: ^5.4.4
+
+flutter:
+  uses-material-design: true
+
+  # Assets
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # Fonts
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Regular.ttf
+  #       - asset: assets/fonts/Roboto-Bold.ttf
+  #         weight: 700
