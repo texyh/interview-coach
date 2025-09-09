@@ -1,0 +1,167 @@
+# AIPA Platform - Cursor Rules
+
+## 🏗️ Project Overview
+
+AIPA (AI Interview Preparation Assistant) is a comprehensive SaaS platform with multiple microservices in a single monorepo.
+
+## 📁 Project Structure
+
+### Root Directory (`/`)
+
+- **Purpose**: Monorepo root with shared configuration
+- **Contains**: `.gitignore`, `.cursorrules`, `README.md`, shared docs
+
+### 🔧 Services
+
+#### `aipa-ai-service/` (NestJS)
+
+- **Technology**: Node.js, TypeScript, NestJS
+- **Purpose**: AI processing service with OpenAI GPT-4 integration
+- **Port**: 3000 (typical)
+- **Key Dependencies**: OpenAI API, Prisma ORM, PostgreSQL
+- **Entry Point**: `src/main.ts`
+- **Commands**:
+  - `npm install` - Install dependencies
+  - `npm run start:dev` - Development server
+  - `npm run build` - Build for production
+
+#### `aipa-backend/` (.NET Core)
+
+- **Technology**: .NET 9, C#, Clean Architecture
+- **Purpose**: REST API service with domain-driven design
+- **Port**: 5000 (typical)
+- **Key Dependencies**: Entity Framework Core, PostgreSQL, JWT
+- **Entry Point**: `src/AIPA.WebApi/Program.cs`
+- **Commands**:
+  - `dotnet restore` - Restore packages
+  - `dotnet run` - Start development server
+  - `dotnet build` - Build solution
+
+#### `aipa-web-app/` (React/Vite)
+
+- **Technology**: React 18, TypeScript, Vite
+- **Purpose**: Main web application interface
+- **Port**: 5173 (Vite default)
+- **Key Dependencies**: Ant Design, Tailwind CSS, Axios
+- **Entry Point**: `src/main.tsx`
+- **Commands**:
+  - `npm install` - Install dependencies
+  - `npm run dev` - Development server
+  - `npm run build` - Build for production
+
+#### `aipa-mobile-app/` (Flutter)
+
+- **Technology**: Flutter, Dart
+- **Purpose**: Cross-platform mobile application
+- **Platforms**: iOS, Android
+- **Key Dependencies**: Flutter SDK, HTTP client
+- **Entry Point**: `lib/main.dart`
+- **Commands**:
+  - `flutter pub get` - Get dependencies
+  - `flutter run` - Run on connected device
+  - `flutter build apk` - Build Android APK
+
+## 📚 Documentation Structure
+
+#### `GenAI/`
+
+- **stories/**: User stories and requirements
+- **tasks/**: Development tasks and epics
+- **concepts/**: Technical concepts and architecture
+- **requirements/**: Functional requirements
+- **rules/**: Coding standards and guidelines
+
+#### `docs/`
+
+- **ARCHITECTURE.md**: System architecture overview
+- **DEVELOPER_ONBOARDING.md**: Getting started guide
+
+## 🚀 Development Workflow
+
+### 1. Setup Environment
+
+```bash
+# Clone the monorepo
+git clone <repository-url>
+cd interview-preper
+
+# Setup all services (run in separate terminals)
+cd aipa-ai-service && npm install
+cd ../aipa-backend && dotnet restore
+cd ../aipa-web-app && npm install
+cd ../aipa-mobile-app && flutter pub get
+```
+
+### 2. Development Commands
+
+```bash
+# AI Service
+cd aipa-ai-service && npm run start:dev
+
+# Backend API
+cd aipa-backend && dotnet run
+
+# Web App
+cd aipa-web-app && npm run dev
+
+# Mobile App
+cd aipa-mobile-app && flutter run
+```
+
+## 🏷️ File Naming Conventions
+
+### Backend (.NET)
+
+- Controllers: `*Controller.cs`
+- Services: `*Service.cs`
+- Repositories: `*Repository.cs`
+- DTOs: `*Request.cs`, `*Response.cs`
+
+### Frontend (React/TypeScript)
+
+- Components: `*Component.tsx`
+- Services: `*Service.ts`
+- Types: `*Types.ts`
+- Hooks: `use*.ts`
+
+### AI Service (NestJS)
+
+- Controllers: `*.controller.ts`
+- Services: `*.service.ts`
+- Modules: `*.module.ts`
+- DTOs: `*.dto.ts`
+
+## 🔧 Configuration Files
+
+- **Root**: `package.json` (monorepo scripts), `.gitignore`
+- **AI Service**: `nest-cli.json`, `tsconfig.json`
+- **Backend**: `AIPA.sln`, `Directory.Build.props`
+- **Web App**: `vite.config.ts`, `tailwind.config.js`
+- **Mobile**: `pubspec.yaml`, `analysis_options.yaml`
+
+## 📋 Key Ports (Development)
+
+- AI Service: 3000
+- Backend API: 5000/5001
+- Web App: 5173
+- Database: 5432 (PostgreSQL)
+
+## 🎯 Development Priorities
+
+1. **Phase 1**: AI Service + Backend API + Authentication
+2. **Phase 2**: Web App MVP + Voice Integration
+3. **Phase 3**: Mobile App + Enterprise Features
+
+## ⚠️ Important Notes
+
+- This is a **monorepo** - all services share the same repository
+- Use **conventional commits** for all changes
+- **Test all services** before committing
+- **Update documentation** when making structural changes
+- **Coordinate deployments** across all services
+
+## 📞 Contact & Support
+
+- **Development Team**: AI Service Development Team
+- **Documentation**: Check `GenAI/` and `docs/` folders
+- **Issues**: Use Azure DevOps work items
