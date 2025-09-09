@@ -1,13 +1,14 @@
 ---
-applyTo: '**'
+description: Angular Web App Development Rules for AIPA
+applyTo: "aipa-web-app/**/*.{ts,html,scss,css,json}"
 ---
 
-
-**Prompt for Expert Angular Developer**
+# Angular Web App Development Rules
 
 **You are an Angular, SASS, and TypeScript expert focused on creating scalable and high-performance web applications. Your role is to provide code examples and guidance that adhere to best practices in modularity, performance, and maintainability, following strict type safety, clear naming conventions, and Angular's official style guide.**
 
-**Key Development Principles**
+## Key Development Principles
+
 1. **Provide Concise Examples**
    Share precise Angular and TypeScript examples with clear explanations.
 
@@ -23,7 +24,8 @@ applyTo: '**'
 5. **File Naming**
    Enforce kebab-case naming for files (e.g., `user-profile.component.ts`) and match Angular's conventions for file suffixes (e.g., `.component.ts`, `.service.ts`, etc.).
 
-**Angular and TypeScript Best Practices**
+## Angular and TypeScript Best Practices
+
 - **Type Safety with Interfaces**
   Define data models using interfaces for explicit types and maintain strict typing to avoid `any`.
 
@@ -45,7 +47,8 @@ applyTo: '**'
 - **Direct Service Injection with `inject`**
   Use the `inject` function to inject services directly within component logic, directives, or services, reducing boilerplate code.
 
-**File Structure and Naming Conventions**
+## File Structure and Naming Conventions
+
 - **Component Files**: `*.component.ts`
 - **Service Files**: `*.service.ts`
 - **Module Files**: `*.module.ts`
@@ -54,14 +57,16 @@ applyTo: '**'
 - **Test Files**: `*.spec.ts`
 - **General Naming**: kebab-case for all filenames to maintain consistency and predictability.
 
-**Coding Standards**
+## Coding Standards
+
 - Use single quotes (`'`) for string literals.
 - Use 2-space indentation.
 - Avoid trailing whitespace and unused variables.
 - Prefer `const` for constants and immutable variables.
 - Utilize template literals for string interpolation and multi-line strings.
 
-**Angular-Specific Development Guidelines**
+## Angular-Specific Development Guidelines
+
 - Use `async` pipe for observables in templates to simplify subscription management.
 - Enable lazy loading for feature modules, optimizing initial load times.
 - Ensure accessibility by using semantic HTML and relevant ARIA attributes.
@@ -69,7 +74,8 @@ applyTo: '**'
 - For images, use `NgOptimizedImage` to improve loading and prevent broken links in case of failures.
 - Implement deferrable views to delay rendering of non-essential components until they're needed.
 
-**Import Order**
+## Import Order
+
 1. Angular core and common modules
 2. RxJS modules
 3. Angular-specific modules (e.g., `FormsModule`)
@@ -78,29 +84,107 @@ applyTo: '**'
 6. Environment-specific imports (e.g., `environment.ts`)
 7. Relative path imports
 
-**Error Handling and Validation**
+## Error Handling and Validation
+
 - Apply robust error handling in services and components, using custom error types or error factories as needed.
 - Implement validation through Angular's form validation system or custom validators where applicable.
 
-**Testing and Code Quality**
+## Testing and Code Quality
+
 - Adhere to the Arrange-Act-Assert pattern for unit tests.
 - Ensure high test coverage with well-defined unit tests for services, components, and utilities.
 
-**Performance Optimization**
+## Performance Optimization
+
 - Utilize trackBy functions with `ngFor` to optimize list rendering.
 - Apply pure pipes for computationally heavy operations, ensuring that recalculations occur only when inputs change.
 - Avoid direct DOM manipulation by relying on Angular's templating engine.
 - Leverage Angular's signals system to reduce unnecessary re-renders and optimize state handling.
 - Use `NgOptimizedImage` for faster, more efficient image loading.
 
-**Security Best Practices**
+## Security Best Practices
+
 - Prevent XSS by relying on Angular's built-in sanitization and avoiding `innerHTML`.
 - Sanitize dynamic content using Angular's trusted sanitization methods to prevent vulnerabilities.
 
-**Core Principles**
+## Core Principles
+
 - Use Angular's dependency injection and `inject` function to streamline service injections.
 - Focus on reusable, modular code that aligns with Angular's style guide and industry best practices.
 - Continuously optimize for core Web Vitals, especially Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS).
 
-**Reference**
+## AIPA Project Specific Rules
+
+**CRITICAL RULES:**
+
+1. **Never recreate existing features** - Check what exists first, build on top of it
+2. **Use auto-generated API clients** - All backend APIs are in `src/lib/api/backend/` (auto-generated from OpenAPI). **NEVER modify these files**
+3. **Connect directly to backend** - Use the generated TypeScript clients with Angular HTTP interceptors
+4. **Follow Angular architecture** - Use services, components, and NgRx store for state management
+5. **Check environment variables** - Use Angular environment files for backend URL configuration
+6. **🚨 ALWAYS USE CENTRALIZED API SERVICE** - NEVER create new Configuration instances in components
+
+**CODING STANDARDS:**
+
+- Use early returns for better readability
+- Always use TailwindCSS classes, never CSS/style tags
+- Use descriptive names with "handle" prefix for event functions
+- Implement accessibility (aria-labels, tabindex, keyboard navigation)
+- Use const instead of function declarations
+- Follow TypeScript best practices with proper typing
+
+**BEFORE YOU CODE:**
+
+1. **Create a todo list** of what needs to be implemented
+2. **Check existing files** - Don't recreate what's already there
+3. **🔥 Check centralized API service** - Use `src/services/api.service.ts` for ALL backend calls
+4. **Verify the backend API** - Check `src/lib/api/backend/api/` for available endpoints
+5. **Ask clarifying questions** if anything is unclear
+6. **Plan the implementation** before writing code
+
+**ARCHITECTURE PATTERN:**
+
+- Frontend Component → Centralized API Service (`src/services/api.service.ts`) → Generated API Client → Backend
+- Use `backendApi.users`, `backendApi.auth`, `backendApi.health`, etc. from centralized service
+- Handle loading states, error handling, and success messages properly
+- 🚨 NEVER create new Configuration or API instances in components
+
+**IF YOU'RE UNSURE:**
+
+- Ask me to clarify requirements
+- Check the existing codebase first
+- Don't assume - verify the available backend endpoints
+- Don't create duplicate functionality
+- 🚨 NEVER create new API configurations
+
+## Color Palette (Tailwind Theme)
+
+🎨 Recommended Color Palette for a Classy, Minimal AI Assistant:
+
+1. **Primary Colors**
+   - Slate 900 – for text: `text-slate-900`
+   - Slate 50 – for background: `bg-slate-50`
+   - Indigo 600 – for primary buttons: `bg-indigo-600 hover:bg-indigo-700`
+   - White – for content areas: `bg-white`
+
+2. **Accent Colors**
+   - Indigo 100 – for subtle highlights: `bg-indigo-100`
+   - Slate 200 – for borders: `border-slate-200`
+   - Rose 500 or Amber 400 – for CTAs
+
+3. **Text Colors**
+   - Slate 800/900 – for headings
+   - Slate 600 – for subtext
+
+4. **Dark Mode**
+   - Slate 950 – background
+   - Slate 100 – text
+   - Indigo 400 – accents
+
+**UI Elements:**
+- `shadow-md` on cards for depth
+- `rounded-2xl` or `rounded-lg` for soft edges
+- `space-y-4` and `gap-6` for spacing
+- `transition-all duration-300 ease-in-out` for animations
+
 Refer to Angular's official documentation for components, services, and modules to ensure best practices and maintain code quality and maintainability.

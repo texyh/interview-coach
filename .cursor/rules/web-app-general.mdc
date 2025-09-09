@@ -1,10 +1,9 @@
 ---
-applyTo: "**"
+description: General Web App Development Rules for AIPA
+applyTo: "aipa-web-app/**/*"
 ---
 
-do not recreate anything that exists, including features. we have generate api clients using open api generator. the can be found in api/backend. dont modify anythting there since it auto generated. create a todolist to execute all the tasks. if you delete a file ensure you create it again with the right content.
-
-also connect everything to the backend. please do create anything you are not sure. always ask me for clarify question
+# General Web App Development Rules
 
 **Project Context & Rules**
 
@@ -53,5 +52,7 @@ Use generated services directly in components.
 - Don't assume - verify the available backend endpoints
 - Don't create duplicate functionality
 - 🚨 NEVER create new API configurations
+
+also connect everything to the backend. please do create anything you are not sure. always ask me for clarify question
 
 Please confirm you understand these rules before starting any implementation.
