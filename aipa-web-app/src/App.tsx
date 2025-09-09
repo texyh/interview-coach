@@ -1,13 +1,11 @@
-import React from 'react';
-import { ConfigProvider, Layout, Typography, Button, Card, Space } from 'antd';
 import {
-  RobotOutlined,
-  BookOutlined,
-  UserOutlined,
   BarChartOutlined,
-  SettingOutlined
-} from '@ant-design/icons';
-import './App.css';
+  BookOutlined,
+  RobotOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Card, ConfigProvider, Layout, Space, Typography } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -17,22 +15,20 @@ function App() {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#4f46e5', // Indigo
+          colorPrimary: "#4f46e5", // Indigo
           borderRadius: 8,
         },
       }}
     >
       <Layout className="min-h-screen">
         {/* Sidebar */}
-        <Sider
-          theme="light"
-          className="shadow-sm"
-          width={280}
-        >
+        <Sider theme="light" className="shadow-sm" width={280}>
           <div className="p-6">
             <div className="flex items-center space-x-2 mb-8">
               <RobotOutlined className="text-2xl text-indigo-600" />
-              <Title level={4} className="m-0 text-slate-900">AIPA</Title>
+              <Title level={4} className="m-0 text-slate-900">
+                AIPA
+              </Title>
             </div>
 
             <Space direction="vertical" className="w-full" size="small">
@@ -95,7 +91,8 @@ function App() {
                     Welcome to AIPA
                   </Title>
                   <Text className="text-slate-600 text-lg">
-                    Your AI-powered companion for interview preparation and career success
+                    Your AI-powered companion for interview preparation and
+                    career success
                   </Text>
                 </div>
               </Card>
@@ -109,7 +106,8 @@ function App() {
                       Smart Preparation
                     </Title>
                     <Text className="text-slate-600">
-                      AI-driven interview questions tailored to your industry and role
+                      AI-driven interview questions tailored to your industry
+                      and role
                     </Text>
                   </div>
                 </Card>
@@ -121,7 +119,8 @@ function App() {
                       Performance Analytics
                     </Title>
                     <Text className="text-slate-600">
-                      Detailed insights and progress tracking for continuous improvement
+                      Detailed insights and progress tracking for continuous
+                      improvement
                     </Text>
                   </div>
                 </Card>
