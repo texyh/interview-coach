@@ -1,0 +1,470 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// AIPA AI Service Database Schema
+// AI-Powered Interview Preparation Assistant - AI Processing Service
+// ============================================================================
+
+// User management (basic info for AI service)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(CANDIDATE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // AI Service related relationships
+  interviewSessions InterviewSession[]
+  aiAnalysis        AiAnalysis[]
+  speechAnalysis    SpeechAnalysis[]
+  feedbackReports   FeedbackReport[]
+  userPreferences   UserPreferences?
+
+  @@map("users")
+}
+
+model UserPreferences {
+  id                String  @id @default(cuid())
+  userId            String  @unique
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // AI Preferences
+  preferredModel    String  @default("gpt-3.5-turbo")
+  analysisDepth     AnalysisDepth @default(STANDARD)
+  feedbackStyle     FeedbackStyle @default(CONSTRUCTIVE)
+
+  // Speech Preferences
+  speechLanguage    String  @default("en-US")
+  speechRegion      String  @default("US")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_preferences")
+}
+
+// Interview Sessions
+model InterviewSession {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title             String
+  description       String?
+  industry          String?
+  role              String?
+  difficultyLevel   DifficultyLevel   @default(INTERMEDIATE)
+  sessionType       SessionType       @default(PRACTICE)
+  status            SessionStatus     @default(SCHEDULED)
+
+  // Session Configuration
+  duration          Int?              // Duration in minutes
+  questionCount     Int?              // Number of questions
+  categories        String[]          // Question categories
+
+  // Timestamps
+  scheduledAt       DateTime?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relationships
+  questions         InterviewQuestion[]
+  responses         InterviewResponse[]
+  aiAnalysis        AiAnalysis[]
+  speechAnalysis    SpeechAnalysis[]
+  feedbackReport    FeedbackReport[]
+
+  @@map("interview_sessions")
+}
+
+// Interview Questions
+model InterviewQuestion {
+  id                String            @id @default(cuid())
+  sessionId         String
+  session           InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  questionText      String
+  questionType      QuestionType      @default(BEHAVIORAL)
+  category          String?           // e.g., "leadership", "problem-solving"
+  industry          String?
+  difficultyLevel   DifficultyLevel   @default(INTERMEDIATE)
+
+  // AI Generation Info
+  generatedByAI     Boolean           @default(false)
+  promptUsed        String?           // Store the prompt used for generation
+  openaiModel       String?           // Model used for generation
+
+  // Question Metadata
+  expectedDuration  Int?              // Expected answer duration in seconds
+  followUpQuestions String[]          // Follow-up questions
+  tags              String[]          // Question tags
+
+  order             Int               // Order in the session
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relationships
+  responses         InterviewResponse[]
+
+  @@map("interview_questions")
+}
+
+// Interview Responses
+model InterviewResponse {
+  id                String            @id @default(cuid())
+  sessionId         String
+  session           InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionId        String
+  question          InterviewQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  // Response Content
+  textResponse      String?           // Transcribed or typed response
+  audioUrl          String?           // URL to audio file
+  audioPath         String?           // Local path to audio file
+  audioSize         Int?              // Audio file size in bytes
+  audioDuration     Float?            // Duration in seconds
+
+  // Response Metadata
+  responseType      ResponseType      @default(TEXT)
+  submittedAt       DateTime          @default(now())
+  processingStatus  ProcessingStatus  @default(PENDING)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relationships
+  aiAnalysis        AiAnalysis[]
+  speechAnalysis    SpeechAnalysis?
+
+  @@map("interview_responses")
+}
+
+// AI Analysis Results
+model AiAnalysis {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId         String?
+  session           InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  responseId        String?
+  response          InterviewResponse? @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  // Analysis Results
+  overallScore      Float?            // Overall score (0-100)
+  relevanceScore    Float?            // Content relevance (0-100)
+  clarityScore      Float?            // Communication clarity (0-100)
+  completenessScore Float?            // Response completeness (0-100)
+  structureScore    Float?            // Response structure (0-100)
+
+  // AI Analysis Content
+  strengths         String[]          // Identified strengths
+  improvements      String[]          // Areas for improvement
+  suggestions       String[]          // Specific suggestions
+  keywordMatches    String[]          // Relevant keywords found
+  missingElements   String[]          // Missing key elements
+
+  // AI Metadata
+  openaiModel       String?           // Model used for analysis
+  promptVersion     String?           // Version of prompt used
+  tokensUsed        Int?              // Tokens consumed
+  processingTime    Float?            // Processing time in seconds
+  confidenceScore   Float?            // AI confidence in analysis
+
+  // Analysis Type
+  analysisType      AnalysisType      @default(RESPONSE_ANALYSIS)
+  status            ProcessingStatus  @default(COMPLETED)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("ai_analysis")
+}
+
+// Speech Analysis Results
+model SpeechAnalysis {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId         String?
+  session           InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  responseId        String            @unique
+  response          InterviewResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  // Speech Quality Metrics
+  clarity           Float?            // Speech clarity (0-100)
+  pace              Float?            // Speaking pace (words per minute)
+  volume            Float?            // Average volume level
+  pauseCount        Int?              // Number of pauses
+  averagePauseTime  Float?            // Average pause duration
+
+  // Filler Words
+  fillerWordCount   Int?              // Total filler words
+  fillerWords       Json?             // Specific filler words and counts
+
+  // Pronunciation & Accent
+  pronunciationScore Float?           // Pronunciation accuracy (0-100)
+  accentInfo        Json?             // Accent analysis results
+
+  // Transcription
+  transcription     String?           // Full transcription
+  transcriptionConf Float?            // Transcription confidence
+  wordTimings       Json?             // Word-level timing data
+
+  // Azure Speech Metadata
+  azureRequestId    String?           // Azure request ID
+  processingTime    Float?            // Processing time in seconds
+  status            ProcessingStatus  @default(COMPLETED)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("speech_analysis")
+}
+
+// Feedback Reports
+model FeedbackReport {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId         String            @unique
+  session           InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  // Overall Assessment
+  overallScore      Float             // Overall performance score
+  performanceLevel  PerformanceLevel  // Performance level assessment
+
+  // Detailed Feedback
+  strengths         String[]          // Key strengths identified
+  improvements      String[]          // Areas needing improvement
+  recommendations   String[]          // Specific recommendations
+  nextSteps         String[]          // Suggested next steps
+
+  // Score Breakdown
+  contentScore      Float?            // Content quality score
+  deliveryScore     Float?            // Delivery quality score
+  structureScore    Float?            // Response structure score
+  confidenceScore   Float?            // Confidence level score
+
+  // Coaching Elements
+  practiceAreas     String[]          // Areas to practice
+  resources         Json?             // Recommended resources
+  followUpQuestions String[]          // Questions for practice
+
+  // Feedback Metadata
+  generatedByAI     Boolean           @default(true)
+  feedbackStyle     FeedbackStyle     @default(CONSTRUCTIVE)
+  reportType        ReportType        @default(COMPREHENSIVE)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("feedback_reports")
+}
+
+// AI Prompt Templates
+model PromptTemplate {
+  id                String            @id @default(cuid())
+  name              String            @unique
+  description       String?
+  category          PromptCategory
+
+  // Template Content
+  template          String            // The actual prompt template
+  variables         String[]          // Variables used in template
+  examples          Json?             // Example usage
+
+  // Configuration
+  model             String            @default("gpt-3.5-turbo")
+  maxTokens         Int               @default(500)
+  temperature       Float             @default(0.7)
+
+  // Metadata
+  version           String            @default("1.0")
+  isActive          Boolean           @default(true)
+  usage             Int               @default(0) // Usage counter
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("prompt_templates")
+}
+
+// API Usage Tracking
+model ApiUsage {
+  id                String            @id @default(cuid())
+
+  // API Information
+  provider          ApiProvider       // OpenAI, Azure, etc.
+  service           String            // Specific service used
+  endpoint          String?           // API endpoint
+
+  // Usage Metrics
+  requestCount      Int               @default(0)
+  tokensUsed        Int               @default(0)
+  costAmount        Float             @default(0.0)
+  currency          String            @default("USD")
+
+  // Request Details
+  model             String?           // AI model used
+  responseTime      Float?            // Average response time
+  errorCount        Int               @default(0)
+
+  // Time Period
+  date              DateTime          @default(now())
+  hour              Int               // Hour of the day (0-23)
+
+  @@unique([provider, service, date, hour])
+  @@map("api_usage")
+}
+
+// System Configuration
+model SystemConfig {
+  id                String            @id @default(cuid())
+  key               String            @unique
+  value             String
+  description       String?
+  category          ConfigCategory    @default(GENERAL)
+
+  isEncrypted       Boolean           @default(false)
+  isRequired        Boolean           @default(false)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("system_config")
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum UserRole {
+  CANDIDATE
+  INTERVIEWER
+  ADMIN
+  EXPERT
+}
+
+enum DifficultyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum SessionType {
+  PRACTICE
+  MOCK_INTERVIEW
+  ASSESSMENT
+  COACHING
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  PAUSED
+}
+
+enum QuestionType {
+  BEHAVIORAL
+  TECHNICAL
+  SITUATIONAL
+  CASE_STUDY
+  PROBLEM_SOLVING
+  CULTURAL_FIT
+  GENERAL
+}
+
+enum ResponseType {
+  TEXT
+  AUDIO
+  VIDEO
+  MIXED
+}
+
+enum ProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum AnalysisType {
+  RESPONSE_ANALYSIS
+  SESSION_ANALYSIS
+  PERFORMANCE_ANALYSIS
+  COMPARATIVE_ANALYSIS
+}
+
+enum AnalysisDepth {
+  BASIC
+  STANDARD
+  DETAILED
+  COMPREHENSIVE
+}
+
+enum FeedbackStyle {
+  CONSTRUCTIVE
+  DIRECT
+  ENCOURAGING
+  DETAILED
+  BRIEF
+}
+
+enum PerformanceLevel {
+  NEEDS_IMPROVEMENT
+  DEVELOPING
+  PROFICIENT
+  ADVANCED
+  EXCEPTIONAL
+}
+
+enum ReportType {
+  QUICK_FEEDBACK
+  DETAILED_ANALYSIS
+  COMPREHENSIVE
+  COACHING_FOCUSED
+}
+
+enum PromptCategory {
+  QUESTION_GENERATION
+  RESPONSE_ANALYSIS
+  FEEDBACK_GENERATION
+  COACHING
+  ASSESSMENT
+  GENERAL
+}
+
+enum ApiProvider {
+  OPENAI
+  AZURE_SPEECH
+  AZURE_COGNITIVE
+  GOOGLE_SPEECH
+  CUSTOM
+}
+
+enum ConfigCategory {
+  GENERAL
+  AI_SETTINGS
+  SPEECH_SETTINGS
+  PERFORMANCE
+  SECURITY
+  FEATURE_FLAGS
+}

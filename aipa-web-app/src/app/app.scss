@@ -1,0 +1,15 @@
+/* App-specific styles using the design system */
+.app-container {
+  @apply min-h-screen bg-background dark:bg-background-dark;
+  @apply transition-colors duration-300 ease-in-out;
+  @apply flex flex-col;
+}
+
+.app-content {
+  @apply flex-1 w-full;
+}
+
+/* Remove responsive layout for horizontal navbar */
+.app-title {
+  @apply text-2xl font-bold text-slate-900 dark:text-slate-100;
+}

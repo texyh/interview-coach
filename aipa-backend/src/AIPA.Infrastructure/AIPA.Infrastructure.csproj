@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIPA.Domain\AIPA.Domain.csproj" />
+    <ProjectReference Include="..\AIPA.Application\AIPA.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="NSwag.MSBuild" Version="14.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.8" />
+    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <Target Name="NSwag" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Exec Command="$(NSwagExe_Net80) openapi2csclient /input:http://localhost:3001/api/docs-json /output:ExternalServices/Generated/AIServiceClient.cs /namespace:AIPA.Infrastructure.ExternalServices.Generated /clientBaseClass:ClientBase /generateClientInterfaces:true /generateExceptionClasses:true /exceptionClass:AIServiceException /wrapDtoExceptions:true /useHttpClientCreationMethod:true /generateOptionalParameters:true /generateJsonMethods:false /enforceFlagEnums:false /classStyle:Poco /operationGenerationMode:MultipleClientsFromOperationId /generateResponseClasses:true /responseClass:AIServiceResponse /generateImmutableArrayProperties:true /generateImmutableDictionaryProperties:true /jsonLibrary:SystemTextJson /arrayType:System.Collections.Generic.ICollection /dictionaryType:System.Collections.Generic.IDictionary /arrayInstanceType:System.Collections.Generic.List /dictionaryInstanceType:System.Collections.Generic.Dictionary /arrayBaseType:System.Collections.Generic.ICollection /dictionaryBaseType:System.Collections.Generic.IDictionary /configurationClass: /httpClientType:System.Net.Http.HttpClient /useBaseUrl:false" ContinueOnError="true" />
+  </Target>
+
+</Project>
