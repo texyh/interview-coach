@@ -33,6 +33,11 @@ namespace AIPA.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("CurrentState")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
@@ -42,11 +47,18 @@ namespace AIPA.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("interval");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<DateTime?>("PausedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ResumedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("ScheduledAt")
                         .HasColumnType("timestamp with time zone");
@@ -77,14 +89,17 @@ namespace AIPA.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScheduledAt")
-                        .HasDatabaseName("IX_InterviewSessions_ScheduledAt");
+                    b.HasIndex("CurrentState");
 
-                    b.HasIndex("Status")
-                        .HasDatabaseName("IX_InterviewSessions_Status");
+                    b.HasIndex("ScheduledAt");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("IX_InterviewSessions_UserId");
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId", "CurrentState");
+
+                    b.HasIndex("UserId", "Status");
 
                     b.ToTable("InterviewSessions", (string)null);
                 });
@@ -157,52 +172,35 @@ namespace AIPA.Infrastructure.Migrations
                         .HasColumnName("Email");
 
                     b.Property<string>("EmailVerificationToken")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("EmailVerificationToken");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("EmailVerificationTokenExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("EmailVerificationTokenExpiresAt");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("EmailVerifiedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("EmailVerifiedAt");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FailedLoginAttempts")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0)
-                        .HasColumnName("FailedLoginAttempts");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsEmailVerified")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsEmailVerified");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastLoginAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("LastLoginAt");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LockedUntil")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("LockedUntil");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("PasswordHash");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordResetToken")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("PasswordResetToken");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("PasswordResetTokenExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("PasswordResetTokenExpiresAt");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -228,6 +226,175 @@ namespace AIPA.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("AIPA.Domain.Interviews.ValueObjects.InterviewSessionHistory", "History", b1 =>
+                        {
+                            b1.Property<Guid>("InterviewSessionId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("InterviewSessionId");
+
+                            b1.ToTable("InterviewSessions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InterviewSessionId");
+
+                            b1.OwnsOne("AIPA.Domain.Interviews.ValueObjects.SessionAnalytics", "Analytics", b2 =>
+                                {
+                                    b2.Property<Guid>("InterviewSessionHistoryInterviewSessionId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<TimeSpan>("ActiveTime")
+                                        .HasColumnType("interval");
+
+                                    b2.Property<TimeSpan>("AverageResponseTime")
+                                        .HasColumnType("interval");
+
+                                    b2.Property<DateTime?>("FirstResponseAt")
+                                        .HasColumnType("timestamp with time zone");
+
+                                    b2.Property<DateTime?>("LastResponseAt")
+                                        .HasColumnType("timestamp with time zone");
+
+                                    b2.Property<double>("OverallScore")
+                                        .HasColumnType("double precision");
+
+                                    b2.Property<int>("PauseCount")
+                                        .HasColumnType("integer");
+
+                                    b2.Property<TimeSpan>("PausedTime")
+                                        .HasColumnType("interval");
+
+                                    b2.Property<string>("PerformanceMetrics")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<int>("QuestionsAnswered")
+                                        .HasColumnType("integer");
+
+                                    b2.Property<int>("QuestionsAsked")
+                                        .HasColumnType("integer");
+
+                                    b2.Property<string>("SkillScores")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<TimeSpan>("TotalDuration")
+                                        .HasColumnType("interval");
+
+                                    b2.HasKey("InterviewSessionHistoryInterviewSessionId");
+
+                                    b2.ToTable("InterviewSessions");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("InterviewSessionHistoryInterviewSessionId");
+                                });
+
+                            b1.OwnsMany("AIPA.Domain.Interviews.ValueObjects.SessionEvent", "Events", b2 =>
+                                {
+                                    b2.Property<Guid>("InterviewSessionHistoryInterviewSessionId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<Guid>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<string>("Description")
+                                        .IsRequired()
+                                        .HasMaxLength(500)
+                                        .HasColumnType("character varying(500)");
+
+                                    b2.Property<string>("EventType")
+                                        .IsRequired()
+                                        .HasMaxLength(100)
+                                        .HasColumnType("character varying(100)");
+
+                                    b2.Property<string>("Metadata")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<DateTime>("Timestamp")
+                                        .HasColumnType("timestamp with time zone");
+
+                                    b2.HasKey("InterviewSessionHistoryInterviewSessionId", "Id");
+
+                                    b2.ToTable("SessionEvent");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("InterviewSessionHistoryInterviewSessionId");
+                                });
+
+                            b1.Navigation("Analytics")
+                                .IsRequired();
+
+                            b1.Navigation("Events");
+                        });
+
+                    b.OwnsOne("AIPA.Domain.Interviews.ValueObjects.SessionRecordingMetadata", "RecordingMetadata", b1 =>
+                        {
+                            b1.Property<Guid>("InterviewSessionId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("AudioFilePath")
+                                .HasMaxLength(500)
+                                .HasColumnType("character varying(500)");
+
+                            b1.Property<long>("AudioFileSize")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("AudioFormat")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("character varying(10)");
+
+                            b1.Property<bool>("IsEncrypted")
+                                .HasColumnType("boolean");
+
+                            b1.Property<string>("Metadata")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<DateTime?>("RecordingCompletedAt")
+                                .HasColumnType("timestamp with time zone");
+
+                            b1.Property<TimeSpan>("RecordingDuration")
+                                .HasColumnType("interval");
+
+                            b1.Property<DateTime?>("RecordingStartedAt")
+                                .HasColumnType("timestamp with time zone");
+
+                            b1.Property<string>("StorageProvider")
+                                .HasMaxLength(50)
+                                .HasColumnType("character varying(50)");
+
+                            b1.Property<string>("TranscriptFilePath")
+                                .HasMaxLength(500)
+                                .HasColumnType("character varying(500)");
+
+                            b1.Property<string>("VideoFilePath")
+                                .HasMaxLength(500)
+                                .HasColumnType("character varying(500)");
+
+                            b1.Property<long>("VideoFileSize")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("VideoFormat")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("character varying(10)");
+
+                            b1.HasKey("InterviewSessionId");
+
+                            b1.ToTable("InterviewSessions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InterviewSessionId");
+                        });
+
+                    b.Navigation("History")
+                        .IsRequired();
+
+                    b.Navigation("RecordingMetadata");
 
                     b.Navigation("User");
                 });
