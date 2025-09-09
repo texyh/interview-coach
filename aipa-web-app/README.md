@@ -18,17 +18,20 @@ The web application component of AIPA (AI Interview Preparation Assistant) - a c
 ## 🛠️ Installation
 
 1. **Clone the repository** (if not already cloned)
+
    ```bash
    git clone <repository-url>
    cd interview-preper/aipa-web-app
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -65,11 +68,13 @@ src/
 ## 🎨 Design System
 
 ### Colors
+
 - **Primary**: Indigo (#4f46e5, #6366f1)
 - **Secondary**: Slate grays
 - **Accent**: Green for success states
 
 ### Components
+
 - Custom Tailwind utility classes in `index.css`
 - Ant Design components with custom theme
 - Responsive design with mobile-first approach
@@ -77,11 +82,13 @@ src/
 ## 🔧 Configuration
 
 ### Tailwind CSS
+
 - Configuration: `tailwind.config.js`
 - PostCSS config: `postcss.config.js`
 - Custom utilities defined in `src/index.css`
 
 ### Ant Design
+
 - Theme configuration in `App.tsx`
 - Custom color tokens aligned with design system
 
@@ -109,11 +116,13 @@ src/
 ## 🚀 Deployment
 
 1. **Build for production**
+
    ```bash
    npm run build
    ```
 
 2. **Preview build locally**
+
    ```bash
    npm run preview
    ```
