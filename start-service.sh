@@ -28,7 +28,7 @@ show_usage() {
     echo
     print_colored $BLUE "Available Services:"
     echo "  ai-service     - NestJS AI processing service (Port: 3000)"
-    echo "  backend        - .NET Core API service (Port: 5000)"
+    echo "  backend        - .NET Core API service (Port: 5030)"
     echo "  web-app        - React Vite web application (Port: 5173)"
     echo "  mobile-app     - Flutter mobile application"
     echo
@@ -103,10 +103,28 @@ start_ai_service() {
     print_colored $BLUE "🚀 Starting NestJS server on port 3000..."
     if [ "$mode" = "prod" ]; then
         npm run build
-        npm run start:prod
+        npm run start:prod &
     else
-        npm run start:dev
+        npm run start:dev &
     fi
+
+    # Wait for server to start
+    sleep 3
+
+    # Open browser with API docs/health check
+    print_colored $GREEN "🌐 Opening AI Service health check in browser..."
+    if command -v open &> /dev/null; then
+        open "http://localhost:3000/health"
+    elif command -v xdg-open &> /dev/null; then
+        xdg-open "http://localhost:3000/health"
+    elif command -v start &> /dev/null; then
+        start "http://localhost:3000/health"
+    fi
+
+    print_colored $GREEN "✅ AI Service is running!"
+    print_colored $CYAN "🏥 Health Check: http://localhost:3000/health"
+
+    wait
 }
 
 # Function to start backend service
@@ -130,13 +148,38 @@ start_backend_service() {
         dotnet build --configuration Release
     fi
 
-    # Start the service
-    print_colored $BLUE "🚀 Starting .NET API server on port 5000..."
+    # Start the service - specify the WebApi project
+    print_colored $BLUE "🚀 Starting .NET API server on port 5030..."
     if [ "$mode" = "prod" ]; then
-        dotnet run --configuration Release
+        dotnet run --project src/AIPA.WebApi/AIPA.WebApi.csproj --configuration Release &
     else
-        dotnet run
+        dotnet run --project src/AIPA.WebApi/AIPA.WebApi.csproj &
     fi
+
+    # Wait a moment for the server to start
+    sleep 3
+
+    # Open Swagger UI in browser
+    print_colored $GREEN "🌐 Opening Swagger UI in browser..."
+    if command -v open &> /dev/null; then
+        # macOS
+        open "http://localhost:5030/swagger"
+    elif command -v xdg-open &> /dev/null; then
+        # Linux
+        xdg-open "http://localhost:5030/swagger"
+    elif command -v start &> /dev/null; then
+        # Windows
+        start "http://localhost:5030/swagger"
+    else
+        print_colored $YELLOW "⚠️  Could not detect browser command. Please manually open: http://localhost:5030/swagger"
+    fi
+
+    print_colored $GREEN "✅ Backend API is running!"
+    print_colored $CYAN "📋 API Documentation: http://localhost:5030/swagger"
+    print_colored $CYAN "🏥 Health Check: http://localhost:5030/health"
+
+    # Wait for the background process
+    wait
 }
 
 # Function to start web app
@@ -158,10 +201,28 @@ start_web_app() {
     print_colored $BLUE "🚀 Starting Vite dev server on port 5173..."
     if [ "$mode" = "prod" ]; then
         npm run build
-        npm run preview
+        npm run preview &
     else
-        npm run dev
+        npm run dev &
     fi
+
+    # Wait for server to start
+    sleep 3
+
+    # Open browser with web app
+    print_colored $GREEN "🌐 Opening AIPA Web App in browser..."
+    if command -v open &> /dev/null; then
+        open "http://localhost:5173"
+    elif command -v xdg-open &> /dev/null; then
+        xdg-open "http://localhost:5173"
+    elif command -v start &> /dev/null; then
+        start "http://localhost:5173"
+    fi
+
+    print_colored $GREEN "✅ Web App is running!"
+    print_colored $CYAN "🌐 Web App: http://localhost:5173"
+
+    wait
 }
 
 # Function to start mobile app

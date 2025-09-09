@@ -23,12 +23,12 @@ Use the `start-service.sh` script to quickly start any service in the AIPA platf
 
 ## Service Ports
 
-| Service | Port | Technology | Description |
-|---------|------|------------|-------------|
-| **AI Service** | 3000 | NestJS + OpenAI | AI processing and interview analysis |
-| **Backend API** | 5000 | .NET Core | REST API with Clean Architecture |
-| **Web App** | 5173 | React + Vite | Main web interface |
-| **Mobile App** | N/A | Flutter | Cross-platform mobile app |
+| Service         | Port | Technology      | Description                          |
+| --------------- | ---- | --------------- | ------------------------------------ |
+| **AI Service**  | 3000 | NestJS + OpenAI | AI processing and interview analysis |
+| **Backend API** | 5030 | .NET Core       | REST API with Clean Architecture     |
+| **Web App**     | 5173 | React + Vite    | Main web interface                   |
+| **Mobile App**  | N/A  | Flutter         | Cross-platform mobile app            |
 
 ## Development Workflow
 
@@ -77,6 +77,7 @@ chmod +x start-service.sh
 ## Troubleshooting
 
 If you encounter permission issues:
+
 ```bash
 chmod +x start-service.sh
 ```
