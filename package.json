@@ -1,5 +1,5 @@
 {
-  "name": "interview-preper",
+  "name": "interview-coach",
   "private": true,
   "workspaces": ["apps/ai-service", "apps/web"],
   "scripts": {

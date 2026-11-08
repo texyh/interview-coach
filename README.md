@@ -1,4 +1,4 @@
-# interview-preper (AIPA)
+# interview-coach (AIPA)
 
 AIPA is an AI interview preparation assistant. Candidates practise interviews and the app gives them AI-generated questions, speech analysis and feedback.
 
