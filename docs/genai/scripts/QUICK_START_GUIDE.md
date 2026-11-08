@@ -14,7 +14,7 @@
 ### **Step 2: Run the Import**
 
 ```bash
-cd /Users/texy/Documents/Work/interview-preper/GenAI/scripts
+cd docs/genai/scripts
 
 # Install dependencies
 pip3 install requests python-dotenv

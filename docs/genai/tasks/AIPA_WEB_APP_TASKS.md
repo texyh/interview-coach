@@ -502,7 +502,7 @@ The AIPA Web App is a Next.js 14 application with App Router, serving as the pri
 
    ```bash
    git clone <repository>
-   cd aipa-web-app
+   cd apps/web
    npm install
    npm run dev
    ```
@@ -531,6 +531,6 @@ The AIPA Web App is a Next.js 14 application with App Router, serving as the pri
 
 ---
 
-**Copy this file to**: `../aipa-web-app/EPIC_TASKS.md`
+**Copy this file to**: `apps/web/EPIC_TASKS.md`
 **Last Updated**: August 7, 2025
 **Contact**: Frontend Development Team

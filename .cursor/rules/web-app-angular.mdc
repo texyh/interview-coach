@@ -1,6 +1,6 @@
 ---
 description: Angular Web App Development Rules for AIPA
-applyTo: "aipa-web-app/**/*.{ts,html,scss,css,json}"
+applyTo: "apps/web/**/*.{ts,html,scss,css,json}"
 ---
 
 # Angular Web App Development Rules

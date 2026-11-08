@@ -1,6 +1,6 @@
 ---
 description: UI/UX Design Rules for AIPA Web Application
-applyTo: "aipa-web-app/**/*.{ts,html,scss,css}"
+applyTo: "apps/web/**/*.{ts,html,scss,css}"
 ---
 
 # UI/UX Design Rules for AIPA

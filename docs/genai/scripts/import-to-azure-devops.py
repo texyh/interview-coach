@@ -255,7 +255,7 @@ def main():
     PAT_TOKEN = "your-pat-token"  # Replace with your Personal Access Token
 
     # Directory containing Epic markdown files
-    EPICS_DIRECTORY = "/Users/texy/Documents/Work/interview-preper/GenAI/stories"
+    EPICS_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "stories")
 
     # Initialize importer
     importer = AzureDevOpsImporter(ORGANIZATION, PROJECT, PAT_TOKEN)

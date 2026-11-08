@@ -19,10 +19,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Service directories
-BACKEND_DIR="$PROJECT_ROOT/aipa-backend"
-AI_SERVICE_DIR="$PROJECT_ROOT/aipa-ai-service"
-WEB_APP_DIR="$PROJECT_ROOT/aipa-web-app"
-MOBILE_APP_DIR="$PROJECT_ROOT/aipa-mobile-app"
+BACKEND_DIR="$PROJECT_ROOT/apps/backend"
+AI_SERVICE_DIR="$PROJECT_ROOT/apps/ai-service"
+WEB_APP_DIR="$PROJECT_ROOT/apps/web"
+MOBILE_APP_DIR="$PROJECT_ROOT/apps/mobile"
 
 # Service URLs
 BACKEND_URL="http://localhost:5030"
@@ -171,9 +171,9 @@ case "${1:-full}" in
             echo -e "${RED}❌ No services are running. Please start your backend services first.${NC}"
             echo ""
             echo "To start services:"
-            echo "  1. Backend: cd aipa-backend && dotnet run"
-            echo "  2. AI Service: cd aipa-ai-service && npm run start:dev"
-            echo "  3. Web App: cd aipa-web-app && npm run dev"
+            echo "  1. Backend: cd apps/backend && dotnet run"
+            echo "  2. AI Service: cd apps/ai-service && npm run start:dev"
+            echo "  3. Web App: cd apps/web && npm run dev"
         fi
         ;;
 

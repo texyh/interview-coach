@@ -16,7 +16,7 @@ The Python script I've created will automatically parse your markdown files and 
 
 2. **Python Environment**
    ```bash
-   cd /Users/texy/Documents/Work/interview-preper/GenAI/scripts
+   cd docs/genai/scripts
    python3 -m venv venv
    source venv/bin/activate  # On macOS/Linux
    pip install -r requirements.txt

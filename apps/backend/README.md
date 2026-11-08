@@ -64,7 +64,7 @@ AIPA.sln
 
    ```bash
    git clone <repository-url>
-   cd aipa-backend
+   cd apps/backend
    ```
 
 2. **Restore dependencies**
@@ -203,6 +203,6 @@ This project is part of the AIPA (AI Interview Preparation Assistant) platform.
 
 ## 🔗 Related Projects
 
-- [AIPA Web App](../aipa-web-app) - Next.js frontend
-- [AIPA Mobile App](../aipa-mobile-app) - Flutter mobile application
-- [AIPA AI Service](../aipa-ai-service) - AI/ML microservice
+- [AIPA Web App](../web) - Next.js frontend
+- [AIPA Mobile App](../mobile) - Flutter mobile application
+- [AIPA AI Service](../ai-service) - AI/ML microservice

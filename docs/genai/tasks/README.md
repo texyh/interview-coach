@@ -13,10 +13,10 @@ This directory contains comprehensive task breakdowns for each application compo
 
 ### **Task Files**
 
-1. **`AIPA_BACKEND_TASKS.md`** → Copy to `../aipa-backend/EPIC_TASKS.md`
-2. **`AIPA_AI_SERVICE_TASKS.md`** → Copy to `../aipa-ai-service/EPIC_TASKS.md`
-3. **`AIPA_WEB_APP_TASKS.md`** → Copy to `../aipa-web-app/EPIC_TASKS.md`
-4. **`AIPA_MOBILE_APP_TASKS.md`** → Copy to `../aipa-mobile-app/EPIC_TASKS.md`
+1. **`AIPA_BACKEND_TASKS.md`** → Copy to `apps/backend/EPIC_TASKS.md`
+2. **`AIPA_AI_SERVICE_TASKS.md`** → Copy to `apps/ai-service/EPIC_TASKS.md`
+3. **`AIPA_WEB_APP_TASKS.md`** → Copy to `apps/web/EPIC_TASKS.md`
+4. **`AIPA_MOBILE_APP_TASKS.md`** → Copy to `apps/mobile/EPIC_TASKS.md`
 
 ---
 
@@ -158,10 +158,10 @@ This directory contains comprehensive task breakdowns for each application compo
 
 ```bash
 # From GenAI/tasks directory
-cp AIPA_BACKEND_TASKS.md ../../aipa-backend/EPIC_TASKS.md
-cp AIPA_AI_SERVICE_TASKS.md ../../aipa-ai-service/EPIC_TASKS.md
-cp AIPA_WEB_APP_TASKS.md ../../aipa-web-app/EPIC_TASKS.md
-cp AIPA_MOBILE_APP_TASKS.md ../../aipa-mobile-app/EPIC_TASKS.md
+cp AIPA_BACKEND_TASKS.md ../../../apps/backend/EPIC_TASKS.md
+cp AIPA_AI_SERVICE_TASKS.md ../../../apps/ai-service/EPIC_TASKS.md
+cp AIPA_WEB_APP_TASKS.md ../../../apps/web/EPIC_TASKS.md
+cp AIPA_MOBILE_APP_TASKS.md ../../../apps/mobile/EPIC_TASKS.md
 ```
 
 ### **Verify File Placement**

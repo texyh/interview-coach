@@ -100,6 +100,6 @@
 
 ---
 
-**Copy this file to**: `../aipa-backend/EPIC_TASKS.md`
+**Copy this file to**: `apps/backend/EPIC_TASKS.md`
 **Last Updated**: August 7, 2025
 **Contact**: Backend Development Team

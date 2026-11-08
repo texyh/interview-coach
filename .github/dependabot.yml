@@ -2,7 +2,7 @@ version: 2
 updates:
   # .NET Backend Dependencies
   - package-ecosystem: "nuget"
-    directory: "/aipa-backend/src"
+    directory: "/apps/backend/src"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -18,7 +18,7 @@ updates:
 
   # NestJS AI Service Dependencies
   - package-ecosystem: "npm"
-    directory: "/aipa-ai-service"
+    directory: "/apps/ai-service"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -34,7 +34,7 @@ updates:
 
   # Next.js Web App Dependencies
   - package-ecosystem: "npm"
-    directory: "/aipa-web-app"
+    directory: "/apps/web"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -50,7 +50,7 @@ updates:
 
   # Flutter Mobile App Dependencies
   - package-ecosystem: "pub"
-    directory: "/aipa-mobile-app"
+    directory: "/apps/mobile"
     schedule:
       interval: "weekly"
       day: "monday"

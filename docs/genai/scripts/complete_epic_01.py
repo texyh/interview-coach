@@ -17,7 +17,7 @@ def create_file_with_content(file_path, content):
 def generate_epic_01_completion():
     """Generate all remaining EPIC-01 stories and tasks"""
 
-    base_path = "/Users/texy/Documents/Work/interview-preper/GenAI/stories/EPIC-01-Foundation-Infrastructure"
+    base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "stories") + "/EPIC-01-Foundation-Infrastructure"
 
     # Story 01-03 Tasks (NestJS AI Service)
     nestjs_tasks = [

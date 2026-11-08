@@ -286,7 +286,7 @@ def main():
     )
 
     # Directory containing Epic markdown files
-    STORIES_DIRECTORY = "/Users/texy/Documents/Work/interview-preper/GenAI/stories"
+    STORIES_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "stories")
 
     print("🚀 Azure DevOps Epic and Story Import Starting...")
     print(f"Organization: {ORGANIZATION}")

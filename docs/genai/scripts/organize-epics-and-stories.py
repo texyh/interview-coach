@@ -337,7 +337,7 @@ def main():
     """Main function"""
 
     # Configuration
-    STORIES_DIRECTORY = "/Users/texy/Documents/Work/interview-preper/GenAI/stories"
+    STORIES_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "stories")
 
     # Check if directory exists
     if not os.path.exists(STORIES_DIRECTORY):

@@ -1,6 +1,6 @@
 ---
 description: NestJS AI Service Development Rules
-applyTo: "aipa-ai-service/**/*.{ts,js,json}"
+applyTo: "apps/ai-service/**/*.{ts,js,json}"
 ---
 
 # NestJS AI Service Development Rules

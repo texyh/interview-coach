@@ -2,7 +2,7 @@
 # This file covers all technologies used in the AIPA platform
 
 # =============================================
-# NODE.JS (aipa-ai-service, aipa-web-app)
+# NODE.JS (apps/ai-service, apps/web)
 # =============================================
 node_modules/
 npm-debug.log*
@@ -23,7 +23,7 @@ build/
 .parcel-cache
 
 # =============================================
-# .NET CORE (aipa-backend)
+# .NET CORE (apps/backend)
 # =============================================
 bin/
 obj/
@@ -71,7 +71,7 @@ TestResults/
 Thumbs.db
 
 # =============================================
-# FLUTTER/DART (aipa-mobile-app)
+# FLUTTER/DART (apps/mobile)
 # =============================================
 # Flutter/Dart/Pub related
 .dart_tool/

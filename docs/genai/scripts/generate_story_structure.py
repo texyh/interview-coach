@@ -7,7 +7,7 @@ This script creates all necessary folders and markdown files for the AI Intervie
 import os
 
 # Base directory for stories
-STORIES_BASE = "/Users/texy/Documents/Work/interview-preper/GenAI/stories"
+STORIES_BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "stories")
 
 # EPIC definitions with their stories
 EPICS_STRUCTURE = {

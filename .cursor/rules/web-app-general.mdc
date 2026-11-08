@@ -1,6 +1,6 @@
 ---
 description: General Web App Development Rules for AIPA
-applyTo: "aipa-web-app/**/*"
+applyTo: "apps/web/**/*"
 ---
 
 # General Web App Development Rules
