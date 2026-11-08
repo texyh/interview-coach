@@ -25,7 +25,7 @@ This microservice follows NestJS modular architecture with Clean Code principles
 ## 📁 Project Structure
 
 ```
-aipa-ai-service/
+apps/ai-service/
 ├── src/
 │   ├── modules/
 │   │   ├── speech/              # Speech processing module
@@ -79,7 +79,7 @@ aipa-ai-service/
 1. **Clone and navigate to the service**
 
    ```bash
-   cd aipa-ai-service
+   cd apps/ai-service
    ```
 
 2. **Install dependencies**
@@ -332,9 +332,9 @@ This project is part of the AIPA (AI Interview Preparation Assistant) platform.
 
 ## 🔗 Related Projects
 
-- [AIPA Backend](../aipa-backend) - .NET Core API
-- [AIPA Web App](../aipa-web-app) - Next.js frontend
-- [AIPA Mobile App](../aipa-mobile-app) - Flutter mobile application
+- [AIPA Backend](../backend) - .NET Core API
+- [AIPA Web App](../web) - Next.js frontend
+- [AIPA Mobile App](../mobile) - Flutter mobile application
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 

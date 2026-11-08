@@ -15,28 +15,28 @@ targets:
   # .NET Backend
   - name: backend
     type: nuget
-    target: aipa-backend/src/AIPA.sln
+    target: apps/backend/src/AIPA.sln
     options:
       all-projects: true
 
   # NestJS AI Service
   - name: ai-service
     type: npm
-    target: aipa-ai-service/package.json
+    target: apps/ai-service/package.json
     options:
       production: true
 
   # Next.js Web App
   - name: web-app
     type: npm
-    target: aipa-web-app/package.json
+    target: apps/web/package.json
     options:
       production: true
 
   # Flutter Mobile App
   - name: mobile-app
     type: dart
-    target: aipa-mobile-app/pubspec.yaml
+    target: apps/mobile/pubspec.yaml
 
 # License Policies
 policies:

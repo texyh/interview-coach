@@ -22,10 +22,10 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Service paths
-BACKEND_PATH="${PROJECT_ROOT}/aipa-backend"
-AI_SERVICE_PATH="${PROJECT_ROOT}/aipa-ai-service"
-WEB_APP_PATH="${PROJECT_ROOT}/aipa-web-app"
-MOBILE_APP_PATH="${PROJECT_ROOT}/aipa-mobile-app"
+BACKEND_PATH="${PROJECT_ROOT}/apps/backend"
+AI_SERVICE_PATH="${PROJECT_ROOT}/apps/ai-service"
+WEB_APP_PATH="${PROJECT_ROOT}/apps/web"
+MOBILE_APP_PATH="${PROJECT_ROOT}/apps/mobile"
 
 # Logging functions
 log_info() {

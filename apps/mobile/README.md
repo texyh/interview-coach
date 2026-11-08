@@ -91,7 +91,7 @@ lib/
 
    ```bash
    git clone <repository-url>
-   cd aipa-mobile-app
+   cd apps/mobile
    ```
 
 2. **Install dependencies**

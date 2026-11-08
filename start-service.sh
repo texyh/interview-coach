@@ -52,16 +52,16 @@ check_service_exists() {
 
     case $service in
         "ai-service")
-            dir_name="aipa-ai-service"
+            dir_name="apps/ai-service"
             ;;
         "backend")
-            dir_name="aipa-backend"
+            dir_name="apps/backend"
             ;;
         "web-app")
-            dir_name="aipa-web-app"
+            dir_name="apps/web"
             ;;
         "mobile-app")
-            dir_name="aipa-mobile-app"
+            dir_name="apps/mobile"
             ;;
         *)
             print_colored $RED "❌ Error: Unknown service '$service'"
@@ -257,7 +257,7 @@ show_status() {
     print_colored $CYAN "📊 AIPA Platform Services Status"
     echo
 
-    services=("aipa-ai-service" "aipa-backend" "aipa-web-app" "aipa-mobile-app")
+    services=("apps/ai-service" "apps/backend" "apps/web" "apps/mobile")
     ports=("3000" "5000" "5173" "N/A")
 
     for i in "${!services[@]}"; do

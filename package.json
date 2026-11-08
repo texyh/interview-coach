@@ -1,0 +1,13 @@
+{
+  "name": "interview-preper",
+  "private": true,
+  "workspaces": ["apps/ai-service", "apps/web"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm test -w apps/ai-service && dotnet test apps/backend/AIPA.sln && cd apps/mobile && flutter test",
+    "lint": "npm run lint --workspaces --if-present",
+    "dev:ai": "npm run start:dev -w apps/ai-service",
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "dotnet run --project apps/backend/src/AIPA.WebApi"
+  }
+}

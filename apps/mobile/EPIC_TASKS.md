@@ -494,7 +494,7 @@ The AIPA Mobile App is a Flutter cross-platform application providing native mob
    ```bash
    flutter --version
    git clone <repository>
-   cd aipa-mobile-app
+   cd apps/mobile
    flutter pub get
    flutter run
    ```
@@ -524,6 +524,6 @@ The AIPA Mobile App is a Flutter cross-platform application providing native mob
 
 ---
 
-**Copy this file to**: `../aipa-mobile-app/EPIC_TASKS.md`  
+**Copy this file to**: `apps/mobile/EPIC_TASKS.md`  
 **Last Updated**: August 7, 2025  
 **Contact**: Mobile Development Team

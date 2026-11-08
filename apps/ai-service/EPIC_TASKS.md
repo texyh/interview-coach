@@ -421,7 +421,7 @@ The AIPA AI Service is a NestJS TypeScript microservice responsible for all AI-p
 1. **Setup Development Environment**
    ```bash
    git clone <repository>
-   cd aipa-ai-service
+   cd apps/ai-service
    npm install
    npx prisma generate
    npm run start:dev
@@ -448,6 +448,6 @@ The AIPA AI Service is a NestJS TypeScript microservice responsible for all AI-p
 
 ---
 
-**Copy this file to**: `../aipa-ai-service/EPIC_TASKS.md`
+**Copy this file to**: `apps/ai-service/EPIC_TASKS.md`
 **Last Updated**: August 7, 2025
 **Contact**: AI Service Development Team

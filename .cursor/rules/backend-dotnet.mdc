@@ -1,6 +1,6 @@
 ---
 description: .NET Development Rules for AIPA Backend Service
-applyTo: "aipa-backend/**/*.{cs,csproj,json}"
+applyTo: "apps/backend/**/*.{cs,csproj,json}"
 ---
 
 # .NET Backend Development Rules

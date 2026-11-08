@@ -39,10 +39,10 @@ Use the provided script to automatically generate environment configurations:
 If you prefer manual configuration, create the following environment files:
 
 ```
-aipa-backend/.env.development
-aipa-ai-service/.env.development
-aipa-web-app/.env.development
-aipa-mobile-app/.env.development
+apps/backend/.env.development
+apps/ai-service/.env.development
+apps/web/.env.development
+apps/mobile/.env.development
 ```
 
 ## Environment Overview
@@ -436,7 +436,7 @@ Set up monitoring for configuration issues:
 ./scripts/setup-environment.sh [environment] --validate-only
 
 # Check specific service configuration
-cd aipa-backend
+cd apps/backend
 dotnet run --environment Development
 ```
 
@@ -469,8 +469,8 @@ echo $NODE_ENV
 echo $ASPNETCORE_ENVIRONMENT
 
 # Verify configuration files exist
-ls -la aipa-ai-service/config/
-ls -la aipa-backend/appsettings.*.json
+ls -la apps/ai-service/config/
+ls -la apps/backend/appsettings.*.json
 ```
 
 #### 4. Database Connection Issues
@@ -567,19 +567,19 @@ monitoring: {
 ### Configuration File Locations
 
 ```
-├── aipa-backend/
+├── apps/backend/
 │   ├── appsettings.json
 │   ├── appsettings.Development.json
 │   ├── appsettings.Staging.json
 │   ├── appsettings.Production.json
 │   └── src/AIPA.WebApi/Configuration/
-├── aipa-ai-service/
+├── apps/ai-service/
 │   └── config/
 │       ├── index.ts
 │       ├── development.config.ts
 │       ├── staging.config.ts
 │       └── production.config.ts
-├── aipa-web-app/
+├── apps/web/
 │   ├── next.config.ts
 │   ├── next.config.development.js
 │   ├── next.config.staging.js
