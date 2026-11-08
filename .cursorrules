@@ -63,7 +63,7 @@ AIPA (AI Interview Preparation Assistant) is a comprehensive SaaS platform with 
 
 ## 📚 Documentation Structure
 
-#### `GenAI/`
+#### `docs/genai/` (local only, not committed)
 
 - **stories/**: User stories and requirements
 - **tasks/**: Development tasks and epics
@@ -163,5 +163,5 @@ cd apps/mobile && flutter run
 ## 📞 Contact & Support
 
 - **Development Team**: AI Service Development Team
-- **Documentation**: Check `GenAI/` and `docs/` folders
+- **Documentation**: Check `docs/` (and `docs/genai/` if present locally)
 - **Issues**: Use Azure DevOps work items

@@ -11,7 +11,6 @@ AIPA is an AI interview preparation assistant. Candidates practise interviews an
 | `apps/web` | Web client | React 19, Vite, Tailwind |
 | `apps/mobile` | Mobile client | Flutter |
 | `docs/` | Architecture, standards, environment setup | |
-| `docs/genai/` | Product requirements, epics, stories and task breakdowns | |
 | `scripts/` | Dev workflow and environment setup | |
 
 The two Node apps are npm workspaces, managed from the root `package.json`.

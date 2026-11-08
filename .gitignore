@@ -139,7 +139,7 @@ Pods/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 
 # =============================================
-# PYTHON (GenAI scripts)
+# PYTHON
 # =============================================
 __pycache__/
 *.py[cod]
@@ -308,3 +308,6 @@ Thumbs.db
 *.old
 *.tmp
 *.temp
+
+# Local AI planning material (not published)
+docs/genai/
