@@ -1,76 +1,37 @@
 version: 2
+
+# One grouped PR per ecosystem per month, minor/patch only.
+# ponytail: major upgrades are skipped; bump those by hand when you plan the migration.
 updates:
-  # .NET Backend Dependencies
+  - package-ecosystem: "npm"
+    directory: "/" # npm workspaces: root lockfile covers apps/ai-service and apps/web
+    schedule:
+      interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      npm:
+        patterns: ["*"]
+
   - package-ecosystem: "nuget"
-    directory: "/apps/backend/src"
+    directory: "/apps/backend"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    reviewers:
-      - "security-team"
-    assignees:
-      - "security-team"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "security"
+      interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      nuget:
+        patterns: ["*"]
 
-  # NestJS AI Service Dependencies
-  - package-ecosystem: "npm"
-    directory: "/apps/ai-service"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    reviewers:
-      - "security-team"
-    assignees:
-      - "security-team"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "security"
-
-  # Next.js Web App Dependencies
-  - package-ecosystem: "npm"
-    directory: "/apps/web"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    reviewers:
-      - "security-team"
-    assignees:
-      - "security-team"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "security"
-
-  # Flutter Mobile App Dependencies
   - package-ecosystem: "pub"
     directory: "/apps/mobile"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    reviewers:
-      - "security-team"
-    assignees:
-      - "security-team"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "security"
-
-  # GitHub Actions Dependencies
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
       interval: "monthly"
-    reviewers:
-      - "security-team"
-    labels:
-      - "github-actions"
-      - "security"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      pub:
+        patterns: ["*"]
